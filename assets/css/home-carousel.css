@@ -1,0 +1,420 @@
+/* Home-page overrides */
+:root {
+    --card-bg: rgba(12, 20, 36, 0.82);
+    --card-glow: 0 0 28px rgba(0, 240, 224, 0.10), 0 16px 40px rgba(0, 0, 0, 0.55);
+    --card-hover-glow: 0 0 48px rgba(0, 240, 224, 0.22), 0 24px 56px rgba(0, 0, 0, 0.7);
+    --gap: 18px;
+    --visible-items: 3;
+}
+
+html { scroll-behavior: smooth; }
+
+/* ── LANDING NAV ── */
+.landing-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 48px;
+    background: rgba(5, 10, 18, 0.96);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 240, 224, 0.1);
+    box-shadow: 0 4px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* Cyan gradient line at bottom edge */
+.landing-nav::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--accent-cyan) 50%, transparent 100%);
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.landing-nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.landing-nav-logo .logo-prefix {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent-cyan);
+    opacity: 0.65;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+}
+
+.landing-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.landing-nav-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 3px;
+    transition: color 220ms ease;
+}
+
+.landing-nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0; bottom: 0;
+    width: 0; height: 1px;
+    background: var(--accent-cyan);
+    box-shadow: 0 0 8px rgba(0, 240, 224, 0.75);
+    transition: width 260ms ease;
+}
+
+.landing-nav-link:hover { color: var(--accent-cyan); }
+.landing-nav-link:hover::after { width: 100%; }
+
+/* ── MAIN LAYOUT ── */
+main {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 88px;
+    padding: 72px 24px 100px;
+}
+
+#brand, #history, #about { scroll-margin-top: 76px; }
+
+/* ── BRAND / HISTORY CAROUSEL SHARED ── */
+.brand-carousel {
+    width: min(1020px, 100%);
+    overflow: hidden;
+}
+
+.carousel-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.carousel-kicker {
+    margin: 0 0 6px;
+    color: var(--accent-cyan);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+.carousel-kicker::before { content: '//  '; opacity: 0.5; }
+
+.carousel-title {
+    margin: 0;
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 5vw, 46px);
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(120deg, #ffffff 0%, var(--accent-cyan) 60%, var(--accent-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.carousel-copy {
+    max-width: 280px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+    text-align: right;
+}
+
+.carousel-window { overflow: hidden; }
+
+.video-row {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: var(--gap);
+    align-items: stretch;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 8px 2px 24px;
+}
+
+.video-row::-webkit-scrollbar { display: none; }
+
+.video-row.is-centered {
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+.video-item {
+    flex: 0 0 calc((100% - (var(--gap) * (var(--visible-items) - 1))) / var(--visible-items));
+    min-width: 0;
+    scroll-snap-align: start;
+    opacity: 0;
+    transform: translateY(16px) scale(0.95);
+    transition:
+        opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+        filter 700ms ease;
+    filter: brightness(0.4) saturate(0.3);
+}
+
+.video-item.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: brightness(1) saturate(1);
+}
+
+/* Card */
+.video-card {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--card-bg);
+    box-shadow: var(--card-glow);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition:
+        transform 300ms ease,
+        box-shadow 300ms ease,
+        border-color 300ms ease;
+}
+
+/* Top glow line */
+.video-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--accent-cyan) 50%, transparent 100%);
+    opacity: 0.5;
+    z-index: 4;
+    transition: opacity 300ms ease;
+}
+
+.video-card:hover::before { opacity: 1; }
+
+/* Corner bracket */
+.video-card::after {
+    content: '';
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 20px; height: 20px;
+    border-top: 1.5px solid var(--accent-cyan);
+    border-right: 1.5px solid var(--accent-cyan);
+    border-radius: 0 4px 0 0;
+    opacity: 0.35;
+    z-index: 4;
+    transition: opacity 300ms ease;
+}
+
+.video-card:hover::after { opacity: 0.9; }
+
+.video-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: rgba(0, 240, 224, 0.45);
+    box-shadow: var(--card-hover-glow);
+}
+
+/* Logo / thumb */
+.thumb {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: contain;
+    padding: clamp(24px, 4vw, 44px);
+    filter: brightness(0) invert(1) opacity(0.75);
+    transform: scale(1);
+    transform-origin: center;
+    transition:
+        transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+        filter 420ms ease;
+    z-index: 1;
+}
+
+.video-card:hover .thumb {
+    transform: scale(1.18);
+    filter: brightness(0) invert(1) sepia(1) saturate(3) hue-rotate(150deg) opacity(1);
+}
+
+/* Scan-line overlay */
+.card-scan {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0, 240, 224, 0.025) 3px,
+        rgba(0, 240, 224, 0.025) 4px
+    );
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms ease;
+}
+
+.video-card:hover .card-scan { opacity: 1; }
+
+.card-link {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+}
+
+/* Title */
+.video-title {
+    margin: 10px 2px 0;
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.video-title::before { content: '> '; color: var(--accent-cyan); opacity: 0.7; }
+
+/* Footer */
+.carousel-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4px;
+}
+
+.carousel-counter {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    min-height: 18px;
+}
+
+.carousel-dot {
+    width: 6px; height: 6px;
+    padding: 0; border: 0;
+    border-radius: 999px;
+    background: rgba(0, 240, 224, 0.2);
+    cursor: pointer;
+    transition: width 280ms ease, background-color 280ms ease, box-shadow 280ms ease;
+}
+
+.carousel-dot:hover { background: rgba(0, 240, 224, 0.5); }
+
+.carousel-dot.is-active {
+    width: 28px;
+    background: var(--accent-cyan);
+    box-shadow: 0 0 12px rgba(0, 240, 224, 0.6);
+}
+
+/* ── ABOUT SECTION ── */
+.about-section {
+    text-align: center;
+    max-width: 680px;
+    width: 100%;
+}
+
+.about-kicker {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent-cyan);
+    margin: 0 0 14px;
+    opacity: 0.85;
+}
+.about-kicker::before { content: '// '; opacity: 0.5; }
+
+.about-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 4vw, 42px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin: 0 0 20px;
+    background: linear-gradient(120deg, #fff 0%, var(--accent-cyan) 60%, var(--accent-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.about-divider {
+    width: 48px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+    border-radius: 2px;
+    margin: 0 auto 28px;
+}
+
+.about-text {
+    font-size: 13px;
+    line-height: 1.95;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    letter-spacing: 0.01em;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 720px) {
+    :root { --visible-items: 2; --gap: 14px; }
+    main { padding: 48px 16px 72px; gap: 56px; }
+    .carousel-header { display: block; margin-bottom: 16px; }
+    .carousel-copy { max-width: none; margin-top: 8px; text-align: left; }
+    .landing-nav { padding: 16px 20px; }
+    .landing-nav-links { gap: 20px; }
+    .landing-nav-logo { font-size: 18px; }
+}
+
+@media (max-width: 460px) {
+    :root { --visible-items: 1; }
+    .landing-nav-links { gap: 14px; }
+    .landing-nav-link { font-size: 10px; letter-spacing: 0.1em; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .video-row { scroll-behavior: auto; }
+    .video-item, .video-card, .thumb, .carousel-dot { transition: none; }
+}

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASUS Zenbook</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/nav.css">
+    <link rel="stylesheet" href="../../assets/css/product-detail.css">
+</head>
+<body>
+
+<nav class="site-nav">
+    <span class="nav-prefix">//</span>
+    <a href="../../index.html" class="nav-crumb">Home</a>
+    <span class="nav-sep">›</span>
+    <a href="index.html" class="nav-crumb">Asus</a>
+    <span class="nav-sep">›</span>
+    <span class="nav-crumb nav-crumb--active">ASUS Zenbook</span>
+</nav>
+
+<div class="page">
+
+    <!-- LEFT COLUMN -->
+    <section class="product-media">
+
+        <div class="video-frame" id="videoFrame">
+            <p class="frame-title">ASUS Zenbook</p>
+            <video class="frame-video" id="mainVideo" playsinline preload="metadata">
+                <source src="../../assets/video/asus/asus_zenbook/asus_zenbook.mp4" type="video/mp4">
+            </video>
+            <div class="player-controls">
+                <div class="control-row">
+                    <button type="button" class="ctrl-btn" data-skip="-5">−5s</button>
+                    <button type="button" class="ctrl-btn ctrl-btn--play" id="playBtn" aria-label="Play">▶</button>
+                    <button type="button" class="ctrl-btn" data-skip="5">+5s</button>
+                    <div class="progress-wrap">
+                        <input type="range" class="progress" id="videoProgress" min="0" max="1000" value="0" step="1" aria-label="Timeline">
+                    </div>
+                    <span class="time-display" id="videoTime">0:00 / 0:00</span>
+                    <div class="speed-menu" id="speedMenu">
+                        <button type="button" class="ctrl-btn" id="speedBtn" title="Speed">1×</button>
+                        <div class="speed-panel" role="listbox">
+                            <button type="button" class="speed-option" data-speed="0.5">0.5×</button>
+                            <button type="button" class="speed-option" data-speed="0.75">0.75×</button>
+                            <button type="button" class="speed-option is-active" data-speed="1">1×</button>
+                            <button type="button" class="speed-option" data-speed="1.25">1.25×</button>
+                            <button type="button" class="speed-option" data-speed="1.5">1.5×</button>
+                            <button type="button" class="speed-option" data-speed="1.75">1.75×</button>
+                            <button type="button" class="speed-option" data-speed="2">2×</button>
+                        </div>
+                    </div>
+                    <button type="button" class="ctrl-btn" id="fullscreenBtn" title="Full screen">⛶</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- IMAGE CAROUSEL: desktop = under video, mobile = between video and audio description -->
+        <div class="product-carousel" id="productCarousel">
+            <div class="carousel-header">
+                <span class="carousel-label">Galeria Produtu</span>
+                <span class="carousel-counter" id="carouselCounter">1 / 4</span>
+            </div>
+
+            <div class="carousel-stage">
+                <button type="button" class="carousel-btn carousel-btn--prev" id="carouselPrev" aria-label="Previous image">‹</button>
+
+                <div class="carousel-main">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_1.webp" alt="ASUS EsxperBook B3 G2 image 1">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_2.webp" alt="ASUS EsxperBook B3 G2 image 2">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_3.webp" alt="ASUS EsxperBook B3 G2 image 3">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_4.webp" alt="ASUS EsxperBook B3 G2 image 4">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_5.webp" alt="ASUS EsxperBook B3 G2 image 4">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_6.webp" alt="ASUS EsxperBook B3 G2 image 4">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_7.webp" alt="ASUS EsxperBook B3 G2 image 4">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_8.webp" alt="ASUS EsxperBook B3 G2 image 4">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_9.webp" alt="ASUS EsxperBook B3 G2 image 4">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="carousel-btn carousel-btn--next" id="carouselNext" aria-label="Next image">›</button>
+            </div>
+
+            <div class="carousel-thumbs" id="carouselThumbs">
+                <button type="button" class="carousel-thumb is-active" data-carousel-index="0">
+                    <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_1.webp" alt="Preview image 1">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="1">
+                    <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_2.webp" alt="Preview image 2">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="2">
+                    <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_3.webp" alt="Preview image 3">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="3">
+                    <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_4.webp" alt="Preview image 4">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="4">
+                    <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_5.webp" alt="Preview image 5">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="5">
+                    <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_6.webp" alt="Preview image 6">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="6">
+                    <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_7.webp" alt="Preview image 6">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="7">
+                    <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_8.webp" alt="Preview image 6">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="8">
+                    <img src="../../assets/img/asus/asus_zenbook/asus_zenbook_9.webp" alt="Preview image 6">
+                </button>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- RIGHT COPY -->
+    <section class="product-copy">
+        <span class="copy-badge">Produtu</span>
+        <h1 class="copy-title">ASUS Zenbook</h1>
+        <div class="copy-divider"></div>
+
+        <!-- TTS DESCRIPTION BLOCK -->
+        <div class="audio-desc-block">
+            <div class="audio-desc-header">
+                <span class="audio-desc-label">Deskrisaun ho Audio</span>
+            </div>
+
+            <!-- Wave visualiser -->
+            <div class="tts-wave" id="ttsWave">
+                <div class="tts-bar"></div><div class="tts-bar"></div><div class="tts-bar"></div>
+                <div class="tts-bar"></div><div class="tts-bar"></div><div class="tts-bar"></div>
+                <div class="tts-bar"></div><div class="tts-bar"></div><div class="tts-bar"></div>
+                <div class="tts-bar"></div>
+            </div>
+
+            <!-- Progress -->
+            <div class="tts-progress-row">
+                <span class="tts-time" id="ttsCurrentTime">0:00</span>
+                <input type="range" class="tts-progress" id="ttsProgress" min="0" value="0" step="1">
+                <span class="tts-time" id="ttsTotalTime">0:00</span>
+            </div>
+
+            <!-- Buttons -->
+            <div class="tts-controls">
+                <button type="button" class="tts-btn" id="ttsRestartBtn" title="Restart">⏮</button>
+                <button type="button" class="tts-btn tts-btn--play" id="ttsPlayBtn" title="Play">▶</button>
+                <button type="button" class="tts-btn" id="ttsStopBtn" title="Stop">⏹</button>
+            </div>
+
+            <!-- Word-synced text -->
+            <div class="tts-text-body" id="ttsTextBody"></div>
+        </div>
+
+    </section>
+</div>
+
+<script>
+window.PRODUCT_DESCRIPTION = {
+    title: "ASUS Zenbook 14 OLED (UM3406) ",
+    text: `
+ASUS Zenbook 14 OLED (UM3406) mak laptop ultraportable premium ne’ebé disigna ba produtividade, estudante, no uza loron-loron.
+Nia iha 14-inch OLED display ho aspect ratio 16:10, bele to’o resolusaun 3K (2880 × 1800) ho refresh rate 120Hz, ne’ebé fó kolor vibrante, blacks ne’ebé dalan metin, no qualidade vizual aas tebes.
+Nia uza to’o AMD Ryzen 7 8840HS processor ho integrated AMD Radeon Graphics, ne’ebé fó performa forte ba multitasking, programming, office apps, no light content creation.
+Laptop ida-ne’e suporta to’o 32GB LPDDR5X memory no to’o 1TB PCIe 4.0 SSD storage,
+ne’ebé halo sistema boot no loading aplikasaun sai lalais.
+
+Ho peso aproximadamente 1.2 kg no espessura de’it 14.9 mm, Zenbook 14 OLED kombina mobilidade ho design metal premium ne’ebé forte.
+Nia iha 75Wh battery ne’ebé bele dura to’o loron tomak dependente uza. Ba koneksaun, nia oferese USB4, USB-C, USB-A, HDMI 2.1, 3.5 mm audio jack, no suporta Wi-Fi 6E.
+Fitur adisionál hanesan backlit keyboard, Full HD IR camera ho Windows Hello support, Harman Kardon-certified speakers,
+no military-grade durability halo Zenbook 14 OLED sai laptop ne’ebé kompletu tebes ba profissional sira, estudante, no ema ne’ebé presiza performance ho mobilidade no display qualidade aas.
+    `.trim()
+};
+window.voiceConfig = { lang: "id-ID", rate: 1.2, speechSpeed: 1.7 };
+</script>
+<script src="../../assets/js/product-detail.js"></script>
+</body>
+</html>

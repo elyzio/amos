@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASUS Zenbook A16</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/nav.css">
+    <link rel="stylesheet" href="../../assets/css/product-detail.css">
+</head>
+<body>
+
+<nav class="site-nav">
+    <span class="nav-prefix">//</span>
+    <a href="../../index.html" class="nav-crumb">Home</a>
+    <span class="nav-sep">›</span>
+    <a href="index.html" class="nav-crumb">Asus</a>
+    <span class="nav-sep">›</span>
+    <span class="nav-crumb nav-crumb--active">ASUS Zenbook A16</span>
+</nav>
+
+<div class="page">
+
+    <!-- LEFT COLUMN -->
+    <section class="product-media">
+
+        <div class="video-frame" id="videoFrame">
+            <p class="frame-title">ASUS Zenbook A16</p>
+            <video class="frame-video" id="mainVideo" playsinline preload="metadata">
+                <source src="../../assets/video/video_test.mp4" type="video/mp4">
+            </video>
+            <div class="player-controls">
+                <div class="control-row">
+                    <button type="button" class="ctrl-btn" data-skip="-5">−5s</button>
+                    <button type="button" class="ctrl-btn ctrl-btn--play" id="playBtn" aria-label="Play">▶</button>
+                    <button type="button" class="ctrl-btn" data-skip="5">+5s</button>
+                    <div class="progress-wrap">
+                        <input type="range" class="progress" id="videoProgress" min="0" max="1000" value="0" step="1" aria-label="Timeline">
+                    </div>
+                    <span class="time-display" id="videoTime">0:00 / 0:00</span>
+                    <div class="speed-menu" id="speedMenu">
+                        <button type="button" class="ctrl-btn" id="speedBtn" title="Speed">1×</button>
+                        <div class="speed-panel" role="listbox">
+                            <button type="button" class="speed-option" data-speed="0.5">0.5×</button>
+                            <button type="button" class="speed-option" data-speed="0.75">0.75×</button>
+                            <button type="button" class="speed-option is-active" data-speed="1">1×</button>
+                            <button type="button" class="speed-option" data-speed="1.25">1.25×</button>
+                            <button type="button" class="speed-option" data-speed="1.5">1.5×</button>
+                            <button type="button" class="speed-option" data-speed="1.75">1.75×</button>
+                            <button type="button" class="speed-option" data-speed="2">2×</button>
+                        </div>
+                    </div>
+                    <button type="button" class="ctrl-btn" id="fullscreenBtn" title="Full screen">⛶</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- IMAGE CAROUSEL: desktop = under video, mobile = between video and audio description -->
+        <div class="product-carousel" id="productCarousel">
+            <div class="carousel-header">
+                <span class="carousel-label">Galeria Produtu</span>
+                <span class="carousel-counter" id="carouselCounter">1 / 4</span>
+            </div>
+
+            <div class="carousel-stage">
+                <button type="button" class="carousel-btn carousel-btn--prev" id="carouselPrev" aria-label="Previous image">‹</button>
+
+                <div class="carousel-main">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook_a16_ux3607/asus_zenbook_a16_ux3607_1.webp" alt="ASUS EsxperBook B3 G2 image 1">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook_a16_ux3607/asus_zenbook_a16_ux3607_2.webp" alt="ASUS EsxperBook B3 G2 image 2">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook_a16_ux3607/asus_zenbook_a16_ux3607_3.webp" alt="ASUS EsxperBook B3 G2 image 3">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook_a16_ux3607/asus_zenbook_a16_ux3607_4.webp" alt="ASUS EsxperBook B3 G2 image 4">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook_a16_ux3607/asus_zenbook_a16_ux3607_5.webp" alt="ASUS EsxperBook B3 G2 image 4">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook_a16_ux3607/asus_zenbook_a16_ux3607_6.webp" alt="ASUS EsxperBook B3 G2 image 4">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="carousel-btn carousel-btn--next" id="carouselNext" aria-label="Next image">›</button>
+            </div>
+
+            <div class="carousel-thumbs" id="carouselThumbs">
+                <button type="button" class="carousel-thumb is-active" data-carousel-index="0">
+                    <img src="../../assets/img/asus/asus_zenbook_a16_ux3607/asus_zenbook_a16_ux3607_1.webp" alt="Preview image 1">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="1">
+                    <img src="../../assets/img/asus/asus_zenbook_a16_ux3607/asus_zenbook_a16_ux3607_2.webp" alt="Preview image 2">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="2">
+                    <img src="../../assets/img/asus/asus_zenbook_a16_ux3607/asus_zenbook_a16_ux3607_3.webp" alt="Preview image 3">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="3">
+                    <img src="../../assets/img/asus/asus_zenbook_a16_ux3607/asus_zenbook_a16_ux3607_4.webp" alt="Preview image 4">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="4">
+                    <img src="../../assets/img/asus/asus_zenbook_a16_ux3607/asus_zenbook_a16_ux3607_5.webp" alt="Preview image 5">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="5">
+                    <img src="../../assets/img/asus/asus_zenbook_a16_ux3607/asus_zenbook_a16_ux3607_6.webp" alt="Preview image 6">
+                </button>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- RIGHT COPY -->
+    <section class="product-copy">
+        <span class="copy-badge">Produtu</span>
+        <h1 class="copy-title">ASUS Zenbook A16</h1>
+        <div class="copy-divider"></div>
+
+        <!-- TTS DESCRIPTION BLOCK -->
+        <div class="audio-desc-block">
+            <div class="audio-desc-header">
+                <span class="audio-desc-label">Deskrisaun ho Audio</span>
+            </div>
+
+            <!-- Wave visualiser -->
+            <div class="tts-wave" id="ttsWave">
+                <div class="tts-bar"></div><div class="tts-bar"></div><div class="tts-bar"></div>
+                <div class="tts-bar"></div><div class="tts-bar"></div><div class="tts-bar"></div>
+                <div class="tts-bar"></div><div class="tts-bar"></div><div class="tts-bar"></div>
+                <div class="tts-bar"></div>
+            </div>
+
+            <!-- Progress -->
+            <div class="tts-progress-row">
+                <span class="tts-time" id="ttsCurrentTime">0:00</span>
+                <input type="range" class="tts-progress" id="ttsProgress" min="0" value="0" step="1">
+                <span class="tts-time" id="ttsTotalTime">0:00</span>
+            </div>
+
+            <!-- Buttons -->
+            <div class="tts-controls">
+                <button type="button" class="tts-btn" id="ttsRestartBtn" title="Restart">⏮</button>
+                <button type="button" class="tts-btn tts-btn--play" id="ttsPlayBtn" title="Play">▶</button>
+                <button type="button" class="tts-btn" id="ttsStopBtn" title="Stop">⏹</button>
+            </div>
+
+            <!-- Word-synced text -->
+            <div class="tts-text-body" id="ttsTextBody"></div>
+        </div>
+
+    </section>
+</div>
+
+<script>
+window.PRODUCT_DESCRIPTION = {
+    title: "ASUS Zenbook A16 (UX3607)",
+    text: `
+ASUS Zenbook A16 (UX3607) mak laptop Copilot+ PC ne’ebé kmaan tebes ho peso de’it 1.2 kg no uza Windows 11 Pro.
+Laptop ida-ne’e iha estrutura forte ho material Ceraluminum no bele uza to’o Snapdragon X2 Elite Extreme processor.
+Nia suporta to’o 48GB LPDDR5x 9600 MT/s RAM no 2TB PCIe Gen 4 SSD ba armazenamentu dadus.
+Ho bateria ne’ebé tahan liu oras 21, monitor 16:10 3K OLED ho six-speaker audio system,
+hamutuk ho koneksaun portu I/O ne'ebé kompletu, inklui portu USB4 rua no fatin ba le'e kartaun SD (SD card reader). 
+Zenbook A16 oferese desempenho aas no mobilidade di’ak ba servisu no entretenimentu
+    `.trim()
+};
+window.voiceConfig = { lang: "en-US", rate: 1.2, speechSpeed: 1.7 };
+</script>
+<script src="../../assets/js/product-detail.js"></script>
+</body>
+</html>

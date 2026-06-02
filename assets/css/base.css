@@ -1,0 +1,53 @@
+:root {
+    --bg-deep: #050a12;
+    --accent-cyan: #00f0e0;
+    --accent-blue: #3a7bff;
+    --accent-violet: #7c4dff;
+    --accent-pink: #ff3a8c;
+    --card-bg: rgba(12, 20, 36, 0.88);
+    --card-border: rgba(0, 240, 224, 0.18);
+    --card-glow: 0 0 28px rgba(0, 240, 224, 0.08), 0 16px 40px rgba(0, 0, 0, 0.6);
+    --card-hover-glow: 0 0 56px rgba(0, 240, 224, 0.20), 0 24px 60px rgba(0, 0, 0, 0.75);
+    --ink: #e4eaf5;
+    --muted: #6a7d9e;
+    --gap: 20px;
+}
+
+* { box-sizing: border-box; }
+html, body { min-height: 100%; margin: 0; }
+
+body {
+    background: var(--bg-deep);
+    color: var(--ink);
+    font-family: 'Space Mono', 'Courier New', monospace;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 80% 60% at 15% 0%,   rgba(58, 123, 255, 0.22) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 85% 100%,  rgba(124, 77, 255, 0.18) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 50% 50%,   rgba(0, 240, 224, 0.06)  0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0, 240, 224, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 224, 0.035) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.4; transform: scale(0.7); }
+}

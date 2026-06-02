@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASUS Zenbook DUO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/nav.css">
+    <link rel="stylesheet" href="../../assets/css/product-detail.css">
+</head>
+<body>
+
+<nav class="site-nav">
+    <span class="nav-prefix">//</span>
+    <a href="../../index.html" class="nav-crumb">Home</a>
+    <span class="nav-sep">›</span>
+    <a href="index.html" class="nav-crumb">Asus</a>
+    <span class="nav-sep">›</span>
+    <span class="nav-crumb nav-crumb--active">ASUS Zenbook DUO</span>
+</nav>
+
+<div class="page">
+
+    <!-- LEFT COLUMN -->
+    <section class="product-media">
+
+        <div class="video-frame" id="videoFrame">
+            <p class="frame-title">ASUS Zenbook DUO</p>
+            <video class="frame-video" id="mainVideo" playsinline preload="metadata">
+                <source src="../../assets/video/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407.mp4" type="video/mp4">
+            </video>
+            <div class="player-controls">
+                <div class="control-row">
+                    <button type="button" class="ctrl-btn" data-skip="-5">−5s</button>
+                    <button type="button" class="ctrl-btn ctrl-btn--play" id="playBtn" aria-label="Play">▶</button>
+                    <button type="button" class="ctrl-btn" data-skip="5">+5s</button>
+                    <div class="progress-wrap">
+                        <input type="range" class="progress" id="videoProgress" min="0" max="1000" value="0" step="1" aria-label="Timeline">
+                    </div>
+                    <span class="time-display" id="videoTime">0:00 / 0:00</span>
+                    <div class="speed-menu" id="speedMenu">
+                        <button type="button" class="ctrl-btn" id="speedBtn" title="Speed">1×</button>
+                        <div class="speed-panel" role="listbox">
+                            <button type="button" class="speed-option" data-speed="0.5">0.5×</button>
+                            <button type="button" class="speed-option" data-speed="0.75">0.75×</button>
+                            <button type="button" class="speed-option is-active" data-speed="1">1×</button>
+                            <button type="button" class="speed-option" data-speed="1.25">1.25×</button>
+                            <button type="button" class="speed-option" data-speed="1.5">1.5×</button>
+                            <button type="button" class="speed-option" data-speed="1.75">1.75×</button>
+                            <button type="button" class="speed-option" data-speed="2">2×</button>
+                        </div>
+                    </div>
+                    <button type="button" class="ctrl-btn" id="fullscreenBtn" title="Full screen">⛶</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- IMAGE CAROUSEL: desktop = under video, mobile = between video and audio description -->
+        <div class="product-carousel" id="productCarousel">
+            <div class="carousel-header">
+                <span class="carousel-label">Galeria Produtu</span>
+                <span class="carousel-counter" id="carouselCounter">1 / 4</span>
+            </div>
+
+            <div class="carousel-stage">
+                <button type="button" class="carousel-btn carousel-btn--prev" id="carouselPrev" aria-label="Previous image">‹</button>
+
+                <div class="carousel-main">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_1.webp" alt="ASUS EsxperBook B3 G2 image 1">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_2.webp" alt="ASUS EsxperBook B3 G2 image 2">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_3.webp" alt="ASUS EsxperBook B3 G2 image 3">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_4.webp" alt="ASUS EsxperBook B3 G2 image 4">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_5.webp" alt="ASUS EsxperBook B3 G2 image 4">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_6.webp" alt="ASUS EsxperBook B3 G2 image 4">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_7.webp" alt="ASUS EsxperBook B3 G2 image 4">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_8.webp" alt="ASUS EsxperBook B3 G2 image 4">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_9.webp" alt="ASUS EsxperBook B3 G2 image 4">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="carousel-btn carousel-btn--next" id="carouselNext" aria-label="Next image">›</button>
+            </div>
+
+            <div class="carousel-thumbs" id="carouselThumbs">
+                <button type="button" class="carousel-thumb is-active" data-carousel-index="0">
+                    <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_1.webp" alt="Preview image 1">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="1">
+                    <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_2.webp" alt="Preview image 2">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="2">
+                    <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_3.webp" alt="Preview image 3">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="3">
+                    <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_4.webp" alt="Preview image 4">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="4">
+                    <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_5.webp" alt="Preview image 5">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="5">
+                    <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_6.webp" alt="Preview image 6">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="6">
+                    <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_7.webp" alt="Preview image 6">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="7">
+                    <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_8.webp" alt="Preview image 6">
+                </button>
+                <button type="button" class="carousel-thumb" data-carousel-index="8">
+                    <img src="../../assets/img/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407_9.webp" alt="Preview image 6">
+                </button>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- RIGHT COPY -->
+    <section class="product-copy">
+        <span class="copy-badge">Produtu</span>
+        <h1 class="copy-title">ASUS Zenbook DUO</h1>
+        <div class="copy-divider"></div>
+
+        <!-- TTS DESCRIPTION BLOCK -->
+        <div class="audio-desc-block">
+            <div class="audio-desc-header">
+                <span class="audio-desc-label">Deskrisaun ho Audio</span>
+            </div>
+
+            <!-- Wave visualiser -->
+            <div class="tts-wave" id="ttsWave">
+                <div class="tts-bar"></div><div class="tts-bar"></div><div class="tts-bar"></div>
+                <div class="tts-bar"></div><div class="tts-bar"></div><div class="tts-bar"></div>
+                <div class="tts-bar"></div><div class="tts-bar"></div><div class="tts-bar"></div>
+                <div class="tts-bar"></div>
+            </div>
+
+            <!-- Progress -->
+            <div class="tts-progress-row">
+                <span class="tts-time" id="ttsCurrentTime">0:00</span>
+                <input type="range" class="tts-progress" id="ttsProgress" min="0" value="0" step="1">
+                <span class="tts-time" id="ttsTotalTime">0:00</span>
+            </div>
+
+            <!-- Buttons -->
+            <div class="tts-controls">
+                <button type="button" class="tts-btn" id="ttsRestartBtn" title="Restart">⏮</button>
+                <button type="button" class="tts-btn tts-btn--play" id="ttsPlayBtn" title="Play">▶</button>
+                <button type="button" class="tts-btn" id="ttsStopBtn" title="Stop">⏹</button>
+            </div>
+
+            <!-- Word-synced text -->
+            <div class="tts-text-body" id="ttsTextBody"></div>
+        </div>
+
+    </section>
+</div>
+
+<script>
+window.PRODUCT_DESCRIPTION = {
+    title: "ASUS Zenbook DUO (UX8407)",
+    text: `
+ASUS Zenbook DUO (UX8407) ho Windows 11 Home mak laptop dual-screen kompaktu ho hideaway hinge, ne'ebé fó área visualizasaun boot to'o besik 20 inch.
+Produtu ida ne'e ideal ba utilizadór mobil ne'ebé presiza multitasking no esperiénsia visual profissional,
+ho tela dupla 14 inch 3K 144 Hz ASUS Lumina Pro OLED, brightness to'o 1000 nits, touchscreen, no anti-reflection ba visibilidade di'ak iha outdoor.
+
+Laptop ne'e funsiona hanesan mobile studio leve, ho desempenho aas husi Intel Core Ultra Series X9, GPU acceleration nível diskretu,
+no kapasidade di'ak ba AI, rendering, no gaming. Suporta bateria to'o liu 18 oras, estrutura Ceraluminum™, 
+hinge, kickstand, no display ne'ebé dezenvolvidu ho padraun durabilidade aas.
+Tanba nia mode utilizasaun versátil, gesture control inteligente, no suporte ASUS Pen 3.0, 
+ASUS Zenbook DUO (UX8407) apropriadu ba produtividade, kreatividade, no utilizasaun profissional iha mobilidade.
+    `.trim()
+};
+window.voiceConfig = { lang: "pt-PT", rate: 1.2, speechSpeed: 1.7 };
+</script>
+<script src="../../assets/js/product-detail.js"></script>
+</body>
+</html>

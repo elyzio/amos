@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mac Book Neon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep:       #050a12;
+            --accent-cyan:   #00f0e0;
+            --accent-blue:   #3a7bff;
+            --accent-violet: #7c4dff;
+            --card-border:   rgba(0, 240, 224, 0.18);
+            --ink:           #e4eaf5;
+            --muted:         #6a7d9e;
+        }
+
+        * { box-sizing: border-box; }
+        html, body { min-height: 100%; margin: 0; }
+
+        body {
+            background: var(--bg-deep);
+            color: var(--ink);
+            font-family: 'Space Mono', 'Courier New', monospace;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 15% 0%,   rgba(58,123,255,0.22)  0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 85% 100%, rgba(124,77,255,0.18)  0%, transparent 55%),
+                radial-gradient(ellipse 50% 40% at 50% 50%,  rgba(0,240,224,0.06)   0%, transparent 70%);
+            pointer-events: none; z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed; inset: 0;
+            background-image:
+                linear-gradient(rgba(0,240,224,0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,240,224,0.035) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none; z-index: 0;
+        }
+
+        .page {
+            position: relative; z-index: 1;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 48px 40px;
+            gap: 56px;
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+
+        /* LEFT COLUMN */
+        .product-media {
+            flex: 1.3;
+            min-width: 320px;
+            max-width: 680px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .video-frame {
+            position: relative;
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            overflow: hidden;
+            background: rgba(8, 14, 26, 0.95);
+            box-shadow:
+                0 0 0 1px rgba(0,240,224,0.08),
+                0 24px 60px rgba(0,0,0,0.6),
+                0 0 40px rgba(0,240,224,0.06);
+        }
+
+        .video-frame::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            opacity: 0.6; z-index: 10;
+        }
+
+        .video-frame::after {
+            content: '';
+            position: absolute; top: 12px; right: 12px;
+            width: 22px; height: 22px;
+            border-top: 1.5px solid var(--accent-cyan);
+            border-right: 1.5px solid var(--accent-cyan);
+            border-radius: 0 5px 0 0;
+            opacity: 0.5; z-index: 10;
+        }
+
+        .frame-title {
+            position: absolute; top: 14px; left: 16px; z-index: 6;
+            margin: 0; padding: 6px 14px;
+            font-size: 12px; font-weight: 700;
+            letter-spacing: 0.14em; text-transform: uppercase;
+            color: var(--accent-cyan);
+            background: rgba(5, 10, 18, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,240,224,0.25);
+            border-radius: 6px;
+        }
+        .frame-title::before { content: '// '; opacity: 0.5; }
+
+        .frame-video {
+            display: block; width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            background: #000;
+        }
+
+        .subtitle-bar {
+            position: absolute;
+            left: 0; right: 0;
+            bottom: 68px;
+            z-index: 15;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 0 14px 8px;
+            pointer-events: none;
+        }
+
+        .subtitle-text {
+            pointer-events: none;
+            max-width: 86%;
+            padding: 5px 16px;
+            font-size: 13px; font-weight: 700;
+            line-height: 1.4;
+            text-align: center;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.72);
+            border-radius: 6px;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: opacity 0.2s ease;
+        }
+        .subtitle-text.is-empty { opacity: 0; }
+        .subtitle-bar.is-hidden .subtitle-text { opacity: 0; pointer-events: none; }
+
+        .player-controls {
+            position: absolute; left: 0; right: 0; bottom: 0; z-index: 5;
+            padding: 10px 14px 14px;
+            background: linear-gradient(to top, rgba(5,10,18,0.97) 70%, transparent);
+        }
+
+        .control-row {
+            display: flex; align-items: center;
+            gap: 8px; margin-bottom: 8px;
+        }
+        .control-row:last-child { margin-bottom: 0; }
+
+        .ctrl-btn {
+            flex: 0 0 auto;
+            border: 1px solid rgba(0,240,224,0.18);
+            border-radius: 7px; padding: 7px 10px;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px; font-weight: 700;
+            color: var(--ink);
+            background: rgba(0,240,224,0.06);
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+            letter-spacing: 0.04em;
+        }
+        .ctrl-btn:hover {
+            background: rgba(0,240,224,0.14);
+            border-color: rgba(0,240,224,0.45);
+            box-shadow: 0 0 10px rgba(0,240,224,0.15);
+        }
+        .ctrl-btn--play {
+            min-width: 42px; font-size: 15px; padding: 7px 12px;
+            color: var(--bg-deep);
+            background: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+        }
+        .ctrl-btn--play:hover { background: #4fffff; box-shadow: 0 0 18px rgba(0,240,224,0.4); }
+        .ctrl-btn--cc.is-active {
+            color: var(--accent-cyan);
+            border-color: rgba(0,240,224,0.5);
+            background: rgba(0,240,224,0.12);
+        }
+
+        .time-display {
+            flex: 0 0 auto; font-size: 11px;
+            font-variant-numeric: tabular-nums;
+            color: var(--muted); min-width: 90px;
+            text-align: right; letter-spacing: 0.04em;
+        }
+
+        .progress-wrap { flex: 1; display: flex; align-items: center; min-width: 0; }
+
+        .progress {
+            width: 100%; height: 4px;
+            -webkit-appearance: none; appearance: none;
+            background: rgba(0,240,224,0.15);
+            border-radius: 2px; cursor: pointer;
+            accent-color: var(--accent-cyan);
+        }
+        .progress::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px; height: 14px; border-radius: 50%;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 8px rgba(0,240,224,0.6);
+        }
+        .progress::-moz-range-thumb {
+            width: 14px; height: 14px; border: none; border-radius: 50%;
+            background: var(--accent-cyan);
+        }
+
+        .speed-menu { position: relative; flex: 0 0 auto; }
+        .speed-panel {
+            display: none;
+            position: absolute; right: 0; bottom: calc(100% + 8px);
+            min-width: 90px; padding: 6px;
+            background: rgba(8, 14, 26, 0.98);
+            border: 1px solid rgba(0,240,224,0.22);
+            border-radius: 10px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.6), 0 0 18px rgba(0,240,224,0.08);
+            z-index: 50;
+        }
+        .speed-menu.is-open .speed-panel { display: block; }
+        .speed-option {
+            display: block; width: 100%;
+            border: none; border-radius: 6px; padding: 8px 12px;
+            font-family: 'Space Mono', monospace;
+            font-size: 12px; font-weight: 700;
+            color: var(--muted); background: transparent;
+            text-align: left; cursor: pointer;
+            transition: background 0.12s, color 0.12s;
+        }
+        .speed-option:hover, .speed-option.is-active {
+            background: rgba(0,240,224,0.12); color: var(--accent-cyan);
+        }
+
+        .video-frame.is-fullscreen,
+        .video-frame:fullscreen,
+        .video-frame:-webkit-full-screen {
+            border-radius: 0; width: 100vw; height: 100vh;
+            max-width: none; display: flex; flex-direction: column;
+            background: #000; overflow: hidden;
+        }
+        .video-frame.is-fullscreen .frame-video,
+        .video-frame:fullscreen .frame-video,
+        .video-frame:-webkit-full-screen .frame-video {
+            flex: 1 1 auto; width: 100%; min-height: 0;
+            height: auto; max-height: calc(100vh - 80px);
+            aspect-ratio: auto; object-fit: contain;
+        }
+        .video-frame.is-fullscreen .player-controls,
+        .video-frame:fullscreen .player-controls,
+        .video-frame:-webkit-full-screen .player-controls {
+            position: absolute; left: 0; right: 0; bottom: 0; z-index: 30;
+            padding: 14px 20px 18px;
+            background: rgba(5,10,18,0.98) !important;
+            border-top: 1px solid rgba(0,240,224,0.12);
+        }
+
+        /* TRANSCRIPT */
+        .transcript-wrap { margin-top: 14px; }
+        .transcript-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .transcript-label {
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--accent-cyan); flex: 1;
+        }
+        .transcript-label::before { content: '// '; opacity: 0.45; }
+
+        .tr-btn {
+            border: 1px solid rgba(0,240,224,0.2);
+            border-radius: 7px; padding: 5px 12px;
+            font-family: 'Space Mono', monospace;
+            font-size: 10px; font-weight: 700; letter-spacing: 0.07em;
+            color: var(--muted);
+            background: rgba(0,240,224,0.04);
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s, border-color 0.15s;
+            white-space: nowrap;
+        }
+        .tr-btn:hover {
+            background: rgba(0,240,224,0.12);
+            border-color: rgba(0,240,224,0.4);
+            color: var(--accent-cyan);
+        }
+        .tr-btn.is-active {
+            background: rgba(0,240,224,0.15);
+            border-color: rgba(0,240,224,0.5);
+            color: var(--accent-cyan);
+        }
+
+        .transcript-list {
+            display: flex; flex-direction: column; gap: 2px;
+            overflow-y: auto; scroll-behavior: smooth;
+            border: 1px solid rgba(0,240,224,0.12);
+            border-radius: 12px;
+            background: rgba(5, 10, 18, 0.6);
+            padding: 8px 6px;
+            transition: max-height 0.35s ease;
+        }
+        .transcript-list.is-collapsed { max-height: 200px; }
+        .transcript-list.is-expanded  { max-height: 380px; }
+        .transcript-list::-webkit-scrollbar { width: 4px; }
+        .transcript-list::-webkit-scrollbar-track { background: rgba(0,240,224,0.04); border-radius: 2px; }
+        .transcript-list::-webkit-scrollbar-thumb { background: rgba(0,240,224,0.2); border-radius: 2px; }
+
+        .tr-line {
+            display: flex; align-items: baseline;
+            gap: 12px; padding: 7px 12px;
+            border-radius: 8px; cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+        .tr-line:hover { background: rgba(0,240,224,0.07); }
+        .tr-line.is-active {
+            background: rgba(0,240,224,0.13);
+            border-left: 2px solid var(--accent-cyan);
+            padding-left: 10px;
+        }
+        .tr-line.is-past .tr-time,
+        .tr-line.is-past .tr-text { opacity: 0.35; }
+        .tr-time {
+            flex: 0 0 auto; font-size: 10px; font-weight: 700;
+            letter-spacing: 0.06em; color: var(--accent-cyan);
+            opacity: 0.6; min-width: 36px;
+            font-variant-numeric: tabular-nums;
+        }
+        .tr-line.is-active .tr-time { opacity: 1; }
+        .tr-text { font-size: 12px; line-height: 1.55; color: var(--muted); transition: color 0.15s; }
+        .tr-line.is-active .tr-text { color: var(--ink); font-weight: 700; }
+        .tr-line:hover .tr-text { color: var(--ink); }
+        .transcript-wrap.is-hidden { display: none; }
+
+        /* RIGHT COPY */
+        .product-copy {
+            flex: 1; min-width: 280px; max-width: 440px;
+            display: flex; flex-direction: column; gap: 0;
+        }
+
+        .copy-kicker {
+            margin: 0 0 10px;
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 0.22em; text-transform: uppercase;
+            color: var(--accent-cyan);
+        }
+        .copy-kicker::before { content: '// '; opacity: 0.45; }
+
+        .copy-badge {
+            display: inline-flex; align-items: center; gap: 6px;
+            margin-bottom: 18px; padding: 5px 12px;
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            color: var(--accent-cyan);
+            background: rgba(0,240,224,0.08);
+            border: 1px solid rgba(0,240,224,0.3);
+            border-radius: 6px;
+        }
+        .copy-badge::before {
+            content: ''; width: 5px; height: 5px; border-radius: 50%;
+            background: var(--accent-cyan); box-shadow: 0 0 6px var(--accent-cyan);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%,100% { opacity:1; transform:scale(1); }
+            50%      { opacity:.35; transform:scale(.65); }
+        }
+
+        .copy-title {
+            margin: 0 0 24px;
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 800; line-height: 1.05;
+            background: linear-gradient(120deg, #fff 0%, var(--accent-cyan) 60%, var(--accent-blue) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+
+        .copy-divider {
+            width: 40px; height: 2px;
+            background: linear-gradient(90deg, var(--accent-cyan), transparent);
+            border-radius: 2px; margin-bottom: 24px;
+        }
+
+        /* ══ TTS DESCRIPTION BLOCK ══ */
+        .audio-desc-block {
+            margin-bottom: 20px;
+            border: 1px solid rgba(0,240,224,0.15);
+            border-radius: 14px;
+            background: rgba(5,10,18,0.7);
+            overflow: hidden;
+        }
+
+        .audio-desc-header {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 14px 8px;
+            border-bottom: 1px solid rgba(0,240,224,0.08);
+        }
+
+        .audio-desc-label {
+            font-size: 9px; font-weight: 700;
+            letter-spacing: 0.2em; text-transform: uppercase;
+            color: var(--accent-cyan); flex: 1;
+        }
+        .audio-desc-label::before { content: '// '; opacity: 0.45; }
+
+        /* Wave bars */
+        .tts-wave {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            height: 28px;
+            padding: 0 14px;
+            margin-top: 10px;
+        }
+
+        .tts-bar {
+            width: 3px;
+            height: 6px;
+            background: var(--accent-cyan);
+            border-radius: 3px;
+            opacity: 0.4;
+            animation: tts-wave 1s infinite ease-in-out;
+            animation-play-state: paused;
+        }
+        .tts-bar:nth-child(2)  { animation-delay: 0.10s; }
+        .tts-bar:nth-child(3)  { animation-delay: 0.20s; }
+        .tts-bar:nth-child(4)  { animation-delay: 0.30s; }
+        .tts-bar:nth-child(5)  { animation-delay: 0.40s; }
+        .tts-bar:nth-child(6)  { animation-delay: 0.50s; }
+        .tts-bar:nth-child(7)  { animation-delay: 0.60s; }
+        .tts-bar:nth-child(8)  { animation-delay: 0.70s; }
+        .tts-bar:nth-child(9)  { animation-delay: 0.80s; }
+        .tts-bar:nth-child(10) { animation-delay: 0.90s; }
+
+        .tts-wave.is-playing .tts-bar {
+            animation-play-state: running;
+            opacity: 1;
+        }
+
+        @keyframes tts-wave {
+            0%, 100% { height: 4px; }
+            50%       { height: 22px; }
+        }
+
+        /* Progress row */
+        .tts-progress-row {
+            display: flex; align-items: center; gap: 8px;
+            padding: 8px 14px 0;
+        }
+
+        .tts-time {
+            font-size: 10px; color: var(--muted);
+            font-variant-numeric: tabular-nums;
+            min-width: 34px;
+            letter-spacing: 0.04em;
+        }
+
+        .tts-progress {
+            flex: 1; height: 3px;
+            -webkit-appearance: none; appearance: none;
+            background: rgba(0,240,224,0.15);
+            border-radius: 2px; cursor: pointer;
+            accent-color: var(--accent-cyan);
+        }
+        .tts-progress::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 6px rgba(0,240,224,0.6);
+        }
+        .tts-progress::-moz-range-thumb {
+            width: 12px; height: 12px; border: none; border-radius: 50%;
+            background: var(--accent-cyan);
+        }
+
+        /* Control buttons row */
+        .tts-controls {
+            display: flex; align-items: center; justify-content: center;
+            gap: 10px;
+            padding: 10px 14px 12px;
+        }
+
+        .tts-btn {
+            border: 1px solid rgba(0,240,224,0.2);
+            border-radius: 50%;
+            width: 34px; height: 34px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px;
+            color: var(--muted);
+            background: rgba(0,240,224,0.04);
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s, color 0.15s;
+        }
+        .tts-btn:hover {
+            background: rgba(0,240,224,0.12);
+            border-color: rgba(0,240,224,0.4);
+            color: var(--accent-cyan);
+        }
+
+        .tts-btn--play {
+            width: 44px; height: 44px; font-size: 18px;
+            color: var(--bg-deep);
+            background: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+        }
+        .tts-btn--play:hover {
+            background: #4fffff;
+            box-shadow: 0 0 14px rgba(0,240,224,0.4);
+        }
+
+        /* Word-sync text */
+        .tts-text-body {
+            padding: 0 16px 16px;
+            font-size: 12px; line-height: 1.9;
+            color: var(--muted);
+            border-top: 1px solid rgba(0,240,224,0.06);
+            margin-top: 4px;
+            padding-top: 12px;
+        }
+
+        .aw {
+            display: inline;
+            border-radius: 3px;
+            padding: 1px 2px;
+            margin: 0 1px;
+            cursor: pointer;
+            transition: background 0.08s, color 0.08s;
+        }
+        .aw:hover { color: var(--ink); background: rgba(0,240,224,0.08); }
+        .aw.is-past { color: rgba(106,125,158,0.38); }
+        .aw.is-active {
+            background: rgba(0,240,224,0.22);
+            color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(0,240,224,0.18);
+        }
+
+        /* SPEC + CTA */
+        .spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 28px; }
+        .spec-item {
+            padding: 12px 14px;
+            border: 1px solid rgba(0,240,224,0.1); border-radius: 10px;
+            background: rgba(0,240,224,0.04);
+            transition: border-color 220ms, background 220ms;
+        }
+        .spec-item:hover { border-color: rgba(0,240,224,0.28); background: rgba(0,240,224,0.08); }
+        .spec-label { font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+        .spec-value { font-size: 13px; font-weight: 700; color: var(--ink); letter-spacing: 0.02em; }
+
+        .cta-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+        .btn-primary {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--bg-deep); background: var(--accent-cyan);
+            border: none; border-radius: 8px; padding: 12px 24px; cursor: pointer;
+            transition: background 220ms, box-shadow 220ms, transform 180ms;
+        }
+        .btn-primary:hover { background: #4fffff; box-shadow: 0 0 22px rgba(0,240,224,0.4); transform: scale(1.03); }
+
+        .btn-secondary {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--accent-cyan); background: transparent;
+            border: 1px solid rgba(0,240,224,0.3); border-radius: 8px; padding: 12px 24px; cursor: pointer;
+            transition: background 220ms, border-color 220ms, box-shadow 220ms;
+        }
+        .btn-secondary:hover { background: rgba(0,240,224,0.07); border-color: rgba(0,240,224,0.55); box-shadow: 0 0 14px rgba(0,240,224,0.12); }
+
+        @media (max-width: 860px) {
+            .page { flex-direction: column; padding: 28px 20px 48px; gap: 36px; }
+            .product-media, .product-copy { max-width: 100%; min-width: 0; width: 100%; }
+        }
+        @media (max-width: 480px) {
+            .time-display { display: none; }
+            .cta-row { flex-direction: column; }
+            .btn-primary, .btn-secondary { width: 100%; text-align: center; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .copy-badge::before { animation: none; }
+            .tts-bar { animation: none; }
+            .aw, .tr-line, .btn-primary, .btn-secondary, .ctrl-btn { transition: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page">
+
+    <!-- LEFT COLUMN -->
+    <section class="product-media">
+
+        <div class="video-frame" id="videoFrame">
+            <p class="frame-title">Mac Book Neon</p>
+            <video class="frame-video" id="mainVideo" playsinline preload="metadata">
+                <source src="../../assets/video/video_test.mp4" type="video/mp4">
+            </video>
+            <div class="subtitle-bar" id="subtitleBar">
+                <span class="subtitle-text is-empty" id="subtitleText"></span>
+            </div>
+            <div class="player-controls">
+                <div class="control-row">
+                    <button type="button" class="ctrl-btn" data-skip="-5">−5s</button>
+                    <button type="button" class="ctrl-btn ctrl-btn--play" id="playBtn" aria-label="Play">▶</button>
+                    <button type="button" class="ctrl-btn" data-skip="5">+5s</button>
+                    <div class="progress-wrap">
+                        <input type="range" class="progress" id="videoProgress" min="0" max="1000" value="0" step="1" aria-label="Timeline">
+                    </div>
+                    <span class="time-display" id="videoTime">0:00 / 0:00</span>
+                    <div class="speed-menu" id="speedMenu">
+                        <button type="button" class="ctrl-btn" id="speedBtn" title="Speed">1×</button>
+                        <div class="speed-panel" role="listbox">
+                            <button type="button" class="speed-option" data-speed="0.5">0.5×</button>
+                            <button type="button" class="speed-option" data-speed="0.75">0.75×</button>
+                            <button type="button" class="speed-option is-active" data-speed="1">1×</button>
+                            <button type="button" class="speed-option" data-speed="1.25">1.25×</button>
+                            <button type="button" class="speed-option" data-speed="1.5">1.5×</button>
+                            <button type="button" class="speed-option" data-speed="1.75">1.75×</button>
+                            <button type="button" class="speed-option" data-speed="2">2×</button>
+                        </div>
+                    </div>
+                    <button type="button" class="ctrl-btn ctrl-btn--cc is-active" id="ccBtn">CC</button>
+                    <button type="button" class="ctrl-btn" id="fullscreenBtn" title="Full screen">⛶</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="transcript-wrap" id="transcriptWrap">
+            <div class="transcript-bar">
+                <span class="transcript-label">Transcript</span>
+                <button type="button" class="tr-btn" id="expandBtn">⤢ Expand</button>
+                <button type="button" class="tr-btn" id="hideTranscriptBtn">✕ Hide</button>
+            </div>
+            <div class="transcript-list is-collapsed" id="transcriptList"></div>
+        </div>
+
+    </section>
+
+    <!-- RIGHT COPY -->
+    <section class="product-copy">
+        <!-- <p class="copy-kicker">Featured Product</p> -->
+        <span class="copy-badge">Produtu</span>
+        <h1 class="copy-title">Mac Book Neon</h1>
+        <div class="copy-divider"></div>
+
+        <!-- TTS DESCRIPTION BLOCK -->
+        <div class="audio-desc-block">
+            <div class="audio-desc-header">
+                <span class="audio-desc-label">Deskrisaun ho Audio</span>
+            </div>
+
+            <!-- Wave visualiser -->
+            <div class="tts-wave" id="ttsWave">
+                <div class="tts-bar"></div><div class="tts-bar"></div><div class="tts-bar"></div>
+                <div class="tts-bar"></div><div class="tts-bar"></div><div class="tts-bar"></div>
+                <div class="tts-bar"></div><div class="tts-bar"></div><div class="tts-bar"></div>
+                <div class="tts-bar"></div>
+            </div>
+
+            <!-- Progress -->
+            <div class="tts-progress-row">
+                <span class="tts-time" id="ttsCurrentTime">0:00</span>
+                <input type="range" class="tts-progress" id="ttsProgress" min="0" value="0" step="1">
+                <span class="tts-time" id="ttsTotalTime">0:00</span>
+            </div>
+
+            <!-- Buttons -->
+            <div class="tts-controls">
+                <button type="button" class="tts-btn" id="ttsRestartBtn" title="Restart">⏮</button>
+                <button type="button" class="tts-btn tts-btn--play" id="ttsPlayBtn" title="Play">▶</button>
+                <button type="button" class="tts-btn" id="ttsStopBtn" title="Stop">⏹</button>
+            </div>
+
+            <!-- Word-synced text -->
+            <div class="tts-text-body" id="ttsTextBody"></div>
+        </div>
+
+        <!-- <div class="spec-grid">
+            <div class="spec-item"><div class="spec-label">Display</div><div class="spec-value">Liquid Retina XDR</div></div>
+            <div class="spec-item"><div class="spec-label">Battery</div><div class="spec-value">18-hour life</div></div>
+            <div class="spec-item"><div class="spec-label">Chip</div><div class="spec-value">M4 Pro Neural</div></div>
+            <div class="spec-item"><div class="spec-label">Audio</div><div class="spec-value">6-speaker Spatial</div></div>
+        </div>
+
+        <div class="cta-row">
+            <button class="btn-primary">Buy Now</button>
+            <button class="btn-secondary">Learn More</button>
+        </div> -->
+    </section>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   VIDEO TRANSCRIPT DATA
+═══════════════════════════════════════════════════════════ */
+var TRANSCRIPT = [
+    { start:  0, end:  3, text: "Meet the MacBook Neon —" },
+    { start:  3, end:  6, text: "built for creators who demand" },
+    { start:  6, end:  9, text: "color that commands attention." },
+    { start:  9, end: 13, text: "The Neon finish refracts light" },
+    { start: 13, end: 16, text: "from every angle." },
+    { start: 16, end: 20, text: "Bold on a desk," },
+    { start: 20, end: 24, text: "unmistakable in a studio." },
+    { start: 24, end: 28, text: "Powered by the latest silicon" },
+    { start: 28, end: 32, text: "with a dedicated Neural Engine." },
+    { start: 32, end: 36, text: "Handle 4K timelines," },
+    { start: 36, end: 40, text: "live-stream encoding," },
+    { start: 40, end: 44, text: "and real-time effects —" },
+    { start: 44, end: 48, text: "without spinning a single fan blade." },
+    { start: 48, end: 52, text: "Studio-matched audio profiles" },
+    { start: 52, end: 56, text: "calibrated for the six-speaker" },
+    { start: 56, end: 60, text: "spatial array." },
+    { start: 60, end: 64, text: "Plug in, play back," },
+    { start: 64, end: 68, text: "and hear the mix exactly" },
+    { start: 68, end: 72, text: "as it was intended." },
+    { start: 72, end: 76, text: "Liquid Retina XDR display." },
+    { start: 76, end: 80, text: "18-hour battery life." },
+    { start: 80, end: 84, text: "M4 Pro Neural chip." },
+    { start: 84, end: 90, text: "This is MacBook Neon." },
+];
+
+/* ═══════════════════════════════════════════════════════════
+   TTS DESCRIPTION TEXT
+   Change this to your own description text
+═══════════════════════════════════════════════════════════ */
+var TTS_TEXT = "Harii ba kriadór sira ne'ebé maka ezije kór ne'ebé maka dada atensaun. Remata Neon refrate naroman husi ângulu hotu-hotu — maka'as iha meza, labele konfundi iha estúdiu. Forsa husi silikon ikus liu ho Motor Neurál dedikadu. Maneja liña tempu 4K, kodifikasaun live-stream, no efeitu sira iha tempu-reál lahó fila ventiladór ida de'it. Haruka ho perfil áudiu ne'ebé hanesan ho estúdiu ne'ebé kalibradu ba array espasiál ho altofalante neen. Plug in, reproduz fali, no rona mistura ne'e hanesan loos ho intensaun.";
+
+/* ═══════════════════════════════════════════════════════════
+   VOICE CONFIG — uncomment ONE block only
+
+   rate        : speech rate for SpeechSynthesis (0.1 – 10)
+   speechSpeed : estimated words-per-second, used for fake
+                 progress bar timing. Tune to match how fast
+                 the chosen voice actually reads.
+═══════════════════════════════════════════════════════════ */
+
+// English — slower rate because English TTS tends to be fast
+// var voiceConfig = {
+//     lang: "en-US",
+//     rate: 0.75,
+//     speechSpeed: 1.8
+// };
+
+// Portuguese (Portugal) — good for words with accents
+// var voiceConfig = {
+//     lang: "pt-PT",
+//     rate: 0.80,
+//     speechSpeed: 1.6
+// };
+
+// Indonesian — good alternative pronunciation for Tetum
+var voiceConfig = {
+    lang: "id-ID",
+    rate: 1.2,
+    speechSpeed: 1.7
+};
+
+/* ═══════════════════════════════════════════════════════════
+   BUILD WORD SPANS FROM TTS_TEXT
+═══════════════════════════════════════════════════════════ */
+var ttsTextBody  = document.getElementById("ttsTextBody");
+var ttsWave      = document.getElementById("ttsWave");
+var ttsPlayBtn   = document.getElementById("ttsPlayBtn");
+var ttsRestartBtn= document.getElementById("ttsRestartBtn");
+var ttsStopBtn   = document.getElementById("ttsStopBtn");
+var ttsProgress  = document.getElementById("ttsProgress");
+var ttsCurrentTime = document.getElementById("ttsCurrentTime");
+var ttsTotalTime   = document.getElementById("ttsTotalTime");
+
+// Split into sentences for SpeechSynthesis (better boundary events per sentence)
+var ttsSentences = TTS_TEXT.split(/(?<=[.!?—])\s+/).filter(function(s) { return s.trim() !== ""; });
+
+// Build sentence start char positions
+var sentenceStartPos = [];
+var searchIdx = 0;
+ttsSentences.forEach(function(sent) {
+    var pos = TTS_TEXT.indexOf(sent, searchIdx);
+    sentenceStartPos.push(pos);
+    searchIdx = pos + sent.length;
+});
+
+// Build word list with char positions
+var ttsWords = TTS_TEXT.match(/\S+/g) || [];
+var wordCharPositions = [];
+var wordSearchIdx = 0;
+ttsWords.forEach(function(word) {
+    var clean = word.replace(/[.,!?—]/g, "");
+    var pos   = TTS_TEXT.indexOf(clean, wordSearchIdx);
+    wordCharPositions.push({ start: pos, end: pos + clean.length });
+    wordSearchIdx = pos + clean.length;
+});
+
+// Render word spans
+var wordSpans = [];
+ttsWords.forEach(function(word, i) {
+    var span = document.createElement("span");
+    span.className   = "aw";
+    span.textContent = word;
+    // clicking a word jumps to its sentence
+    (function(charPos) {
+        span.addEventListener("click", function() {
+            // find which sentence this word belongs to
+            var targetSentIdx = 0;
+            for (var s = sentenceStartPos.length - 1; s >= 0; s--) {
+                if (charPos >= sentenceStartPos[s]) { targetSentIdx = s; break; }
+            }
+            ttsJumpToSentence(targetSentIdx);
+        });
+    })(wordCharPositions[i].start);
+    wordSpans.push(span);
+    ttsTextBody.appendChild(span);
+    ttsTextBody.appendChild(document.createTextNode(" "));
+});
+
+// Progress bar setup
+var totalWords   = ttsWords.length;
+var totalSeconds = Math.ceil(totalWords / voiceConfig.speechSpeed);
+ttsProgress.max  = totalSeconds;
+ttsTotalTime.textContent = fmtTimeTTS(totalSeconds);
+
+/* ═══════════════════════════════════════════════════════════
+   TTS STATE
+═══════════════════════════════════════════════════════════ */
+var ttsIsReading   = false;
+var ttsIsPaused    = false;
+var ttsCurSentIdx  = 0;
+var ttsFakeProgress= 0;
+var ttsTimer       = null;
+
+function fmtTimeTTS(s) {
+    if (!Number.isFinite(s) || s < 0) s = 0;
+    return Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
+}
+
+function ttsSetPlaying(on) {
+    ttsPlayBtn.textContent = on ? "⏸" : "▶";
+    if (on) ttsWave.classList.add("is-playing");
+    else    ttsWave.classList.remove("is-playing");
+}
+
+function ttsClearHighlight() {
+    wordSpans.forEach(function(s) { s.classList.remove("is-active", "is-past"); });
+}
+
+function ttsHighlightByChar(absoluteChar) {
+    ttsClearHighlight();
+    var found = -1;
+    for (var i = 0; i < wordCharPositions.length; i++) {
+        if (absoluteChar >= wordCharPositions[i].start && absoluteChar <= wordCharPositions[i].end) {
+            found = i; break;
+        }
+    }
+    if (found !== -1) {
+        wordSpans[found].classList.add("is-active");
+        for (var j = 0; j < found; j++) wordSpans[j].classList.add("is-past");
+    }
+}
+
+function ttsStartProgressTimer() {
+    ttsStopProgressTimer();
+    ttsTimer = setInterval(function() {
+        if (ttsFakeProgress < totalSeconds) {
+            ttsFakeProgress++;
+            ttsProgress.value = ttsFakeProgress;
+            ttsCurrentTime.textContent = fmtTimeTTS(ttsFakeProgress);
+        }
+    }, 1000);
+}
+
+function ttsStopProgressTimer() {
+    clearInterval(ttsTimer);
+}
+
+function ttsReadSentence() {
+    if (ttsCurSentIdx >= ttsSentences.length) {
+        ttsStop(); return;
+    }
+
+    var utt = new SpeechSynthesisUtterance(ttsSentences[ttsCurSentIdx]);
+    utt.lang  = voiceConfig.lang;
+    utt.rate  = voiceConfig.rate;
+    utt.pitch = 1;
+    utt.volume= 1;
+
+    var sentStart = sentenceStartPos[ttsCurSentIdx];
+
+    utt.onboundary = function(e) {
+        if (e.name === "word") {
+            ttsHighlightByChar(sentStart + e.charIndex);
+        }
+    };
+
+    utt.onend = function() {
+        if (!ttsIsReading || ttsIsPaused) return;
+        ttsCurSentIdx++;
+        ttsReadSentence();
+    };
+
+    speechSynthesis.speak(utt);
+}
+
+function ttsPlay() {
+    speechSynthesis.cancel();
+    ttsCurSentIdx   = 0;
+    ttsFakeProgress = 0;
+    ttsProgress.value = 0;
+    ttsCurrentTime.textContent = "0:00";
+    ttsIsReading = true;
+    ttsIsPaused  = false;
+    ttsSetPlaying(true);
+    ttsStartProgressTimer();
+    ttsReadSentence();
+}
+
+function ttsPause() {
+    speechSynthesis.pause();
+    ttsIsPaused = true;
+    ttsSetPlaying(false);
+    ttsStopProgressTimer();
+}
+
+function ttsResume() {
+    speechSynthesis.resume();
+    ttsIsPaused = false;
+    ttsSetPlaying(true);
+    ttsStartProgressTimer();
+}
+
+function ttsStop() {
+    speechSynthesis.cancel();
+    ttsIsReading   = false;
+    ttsIsPaused    = false;
+    ttsCurSentIdx  = 0;
+    ttsFakeProgress= 0;
+    ttsProgress.value = 0;
+    ttsCurrentTime.textContent = "0:00";
+    ttsSetPlaying(false);
+    ttsStopProgressTimer();
+    ttsClearHighlight();
+}
+
+function ttsJumpToSentence(idx) {
+    speechSynthesis.cancel();
+    ttsStopProgressTimer();
+
+    ttsCurSentIdx = idx;
+
+    // Estimate fake progress from sentence position
+    var charPos    = sentenceStartPos[idx];
+    var charFrac   = charPos / TTS_TEXT.length;
+    ttsFakeProgress = Math.round(charFrac * totalSeconds);
+    ttsProgress.value = ttsFakeProgress;
+    ttsCurrentTime.textContent = fmtTimeTTS(ttsFakeProgress);
+
+    // Mark past words
+    ttsClearHighlight();
+    for (var i = 0; i < wordCharPositions.length; i++) {
+        if (wordCharPositions[i].start < charPos) wordSpans[i].classList.add("is-past");
+        else break;
+    }
+
+    if (ttsIsReading && !ttsIsPaused) {
+        ttsStartProgressTimer();
+        ttsReadSentence();
+    }
+}
+
+// Toggle play/pause/start
+ttsPlayBtn.addEventListener("click", function() {
+    if (!ttsIsReading)     ttsPlay();
+    else if (ttsIsPaused)  ttsResume();
+    else                   ttsPause();
+});
+
+ttsRestartBtn.addEventListener("click", function() { ttsStop(); ttsPlay(); });
+ttsStopBtn.addEventListener("click",    function() { ttsStop(); });
+
+// Scrub bar
+ttsProgress.addEventListener("input", function() {
+    ttsFakeProgress = Number(ttsProgress.value);
+    ttsCurrentTime.textContent = fmtTimeTTS(ttsFakeProgress);
+
+    var pct = ttsFakeProgress / totalSeconds;
+    var targetSentIdx = Math.floor(pct * ttsSentences.length);
+    if (targetSentIdx >= ttsSentences.length) targetSentIdx = ttsSentences.length - 1;
+
+    if (ttsIsReading) ttsJumpToSentence(targetSentIdx);
+});
+
+/* ═══════════════════════════════════════════════════════════
+   VIDEO PLAYER
+═══════════════════════════════════════════════════════════ */
+var videoFrame    = document.getElementById("videoFrame");
+var video         = document.getElementById("mainVideo");
+var playBtn       = document.getElementById("playBtn");
+var videoProgress = document.getElementById("videoProgress");
+var videoTime     = document.getElementById("videoTime");
+var speedMenu     = document.getElementById("speedMenu");
+var speedBtn      = document.getElementById("speedBtn");
+var speedOptions  = document.querySelectorAll(".speed-option");
+var fullscreenBtn = document.getElementById("fullscreenBtn");
+var subtitleBar   = document.getElementById("subtitleBar");
+var subtitleText  = document.getElementById("subtitleText");
+var ccBtn         = document.getElementById("ccBtn");
+
+var subtitleOn    = true;
+var videoDragging = false;
+var lastActiveIdx = -1;
+
+var transcriptList = document.getElementById("transcriptList");
+var lineEls = TRANSCRIPT.map(function(seg) {
+    var row = document.createElement("div");
+    row.className = "tr-line";
+    row.innerHTML = '<span class="tr-time">' + fmtTimeVid(seg.start) + '</span><span class="tr-text">' + seg.text + '</span>';
+    row.addEventListener("click", function() {
+        video.currentTime = seg.start;
+        updateVideoUI();
+        if (video.paused) video.play();
+    });
+    transcriptList.appendChild(row);
+    return row;
+});
+
+function fmtTimeVid(s) {
+    if (!Number.isFinite(s)) return "0:00";
+    return Math.floor(s/60) + ":" + String(Math.floor(s%60)).padStart(2,"0");
+}
+
+ccBtn.addEventListener("click", function() {
+    subtitleOn = !subtitleOn;
+    ccBtn.classList.toggle("is-active", subtitleOn);
+    subtitleBar.classList.toggle("is-hidden", !subtitleOn);
+});
+
+var transcriptWrap = document.getElementById("transcriptWrap");
+var expandBtn      = document.getElementById("expandBtn");
+var hideBtn        = document.getElementById("hideTranscriptBtn");
+var isExpanded     = false;
+
+expandBtn.addEventListener("click", function() {
+    isExpanded = !isExpanded;
+    transcriptList.classList.toggle("is-collapsed", !isExpanded);
+    transcriptList.classList.toggle("is-expanded",  isExpanded);
+    expandBtn.textContent = isExpanded ? "⤡ Collapse" : "⤢ Expand";
+    expandBtn.classList.toggle("is-active", isExpanded);
+});
+
+var reopenBtn = document.createElement("button");
+reopenBtn.type = "button";
+reopenBtn.className = "tr-btn";
+reopenBtn.style.cssText = "display:none; margin-top:10px; align-items:center; gap:6px;";
+reopenBtn.textContent = "⊟ Show Transcript";
+reopenBtn.addEventListener("click", function() {
+    transcriptWrap.classList.remove("is-hidden");
+    reopenBtn.style.display = "none";
+});
+transcriptWrap.parentNode.insertBefore(reopenBtn, transcriptWrap.nextSibling);
+
+hideBtn.addEventListener("click", function() {
+    transcriptWrap.classList.add("is-hidden");
+    reopenBtn.style.display = "flex";
+});
+
+function getVideoDur() { var d = video.duration; return Number.isFinite(d) ? d : 0; }
+
+function updateVideoTranscript(t) {
+    var idx = -1;
+    for (var i = 0; i < TRANSCRIPT.length; i++) {
+        if (t >= TRANSCRIPT[i].start && t < TRANSCRIPT[i].end) { idx = i; break; }
+    }
+    if (idx !== -1) {
+        subtitleText.textContent = TRANSCRIPT[idx].text;
+        subtitleText.classList.remove("is-empty");
+    } else {
+        subtitleText.textContent = "";
+        subtitleText.classList.add("is-empty");
+    }
+    if (idx === lastActiveIdx) return;
+    lastActiveIdx = idx;
+    lineEls.forEach(function(el, i) {
+        el.classList.remove("is-active", "is-past");
+        if (i === idx) el.classList.add("is-active");
+        else if (idx !== -1 && i < idx) el.classList.add("is-past");
+    });
+    if (idx !== -1) {
+        var el  = lineEls[idx];
+        var box = transcriptList;
+        var top = el.offsetTop - box.offsetTop;
+        if (top < box.scrollTop || top + el.offsetHeight > box.scrollTop + box.clientHeight) {
+            box.scrollTop = top - box.clientHeight / 2 + el.offsetHeight / 2;
+        }
+    }
+}
+
+function updateVideoUI() {
+    var dur = getVideoDur(), cur = video.currentTime;
+    if (!videoDragging) videoProgress.value = String(Math.round(dur ? cur / dur * 1000 : 0));
+    videoTime.textContent = fmtTimeVid(cur) + " / " + fmtTimeVid(dur);
+    updateVideoTranscript(cur);
+}
+
+function setVideoPlaying(p) {
+    playBtn.textContent = p ? "⏸" : "▶";
+    playBtn.setAttribute("aria-label", p ? "Pause" : "Play");
+}
+
+function setVideoSpeed(rate) {
+    video.playbackRate = rate;
+    speedBtn.textContent = rate + "×";
+    speedOptions.forEach(function(o) {
+        o.classList.toggle("is-active", Number(o.dataset.speed) === rate);
+    });
+}
+
+playBtn.addEventListener("click", function() { video.paused ? video.play() : video.pause(); });
+
+document.querySelectorAll("[data-skip]").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+        var dur = getVideoDur();
+        video.currentTime = Math.min(Math.max(video.currentTime + Number(btn.dataset.skip), 0), dur || 0);
+        updateVideoUI();
+    });
+});
+
+videoProgress.addEventListener("pointerdown", function() { videoDragging = true; });
+videoProgress.addEventListener("pointerup", function() {
+    videoDragging = false;
+    var dur = getVideoDur();
+    if (dur) video.currentTime = Number(videoProgress.value) / 1000 * dur;
+    updateVideoUI();
+});
+videoProgress.addEventListener("input", function() {
+    var dur = getVideoDur(); if (!dur) return;
+    video.currentTime = Number(videoProgress.value) / 1000 * dur;
+    updateVideoUI();
+});
+
+var videoSpeedJustPicked = false;
+speedBtn.addEventListener("click", function(e) {
+    e.stopPropagation();
+    var open = speedMenu.classList.toggle("is-open");
+    speedBtn.setAttribute("aria-expanded", String(open));
+});
+speedOptions.forEach(function(o) {
+    o.addEventListener("click", function() {
+        videoSpeedJustPicked = true;
+        setVideoSpeed(Number(o.dataset.speed));
+        speedMenu.classList.remove("is-open");
+        speedBtn.setAttribute("aria-expanded", "false");
+    });
+});
+document.addEventListener("click", function(e) {
+    if (videoSpeedJustPicked) { videoSpeedJustPicked = false; return; }
+    if (!speedMenu.contains(e.target)) {
+        speedMenu.classList.remove("is-open");
+        speedBtn.setAttribute("aria-expanded", "false");
+    }
+});
+
+function isFullscreen() {
+    return document.fullscreenElement === videoFrame || document.webkitFullscreenElement === videoFrame;
+}
+
+function updateFullscreenBtn() {
+    var on = isFullscreen();
+    videoFrame.classList.toggle("is-fullscreen", on);
+    fullscreenBtn.textContent = on ? "⤢" : "⛶";
+    fullscreenBtn.title = on ? "Exit full screen" : "Full screen";
+    if (on) speedMenu.classList.remove("is-open");
+}
+
+fullscreenBtn.addEventListener("click", async function() {
+    try {
+        if (!isFullscreen()) {
+            if (videoFrame.requestFullscreen) await videoFrame.requestFullscreen();
+            else if (videoFrame.webkitRequestFullscreen) videoFrame.webkitRequestFullscreen();
+        } else {
+            if (document.exitFullscreen) await document.exitFullscreen();
+            else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        }
+    } catch(e) { console.warn("Fullscreen not supported", e); }
+});
+
+document.addEventListener("fullscreenchange",       updateFullscreenBtn);
+document.addEventListener("webkitfullscreenchange", updateFullscreenBtn);
+
+video.addEventListener("loadedmetadata", updateVideoUI);
+video.addEventListener("timeupdate",     updateVideoUI);
+video.addEventListener("ended",  function() { setVideoPlaying(false); });
+video.addEventListener("play",   function() { setVideoPlaying(true); });
+video.addEventListener("pause",  function() { setVideoPlaying(false); });
+
+video.volume = 1;
+setVideoSpeed(1);
+setVideoPlaying(false);
+updateFullscreenBtn();
+updateVideoTranscript(0);
+</script>
+</body>
+</html>

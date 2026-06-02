@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Product Category</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #050a12;
+            --accent-cyan: #00f0e0;
+            --accent-blue: #3a7bff;
+            --accent-violet: #7c4dff;
+            --accent-pink: #ff3a8c;
+            --card-bg: rgba(12, 20, 36, 0.88);
+            --card-border: rgba(0, 240, 224, 0.18);
+            --card-glow: 0 0 28px rgba(0, 240, 224, 0.08), 0 16px 40px rgba(0, 0, 0, 0.6);
+            --card-hover-glow: 0 0 56px rgba(0, 240, 224, 0.20), 0 24px 60px rgba(0, 0, 0, 0.75);
+            --ink: #e4eaf5;
+            --muted: #6a7d9e;
+            --gap: 20px;
+        }
+
+        * { box-sizing: border-box; }
+        html, body { min-height: 100%; margin: 0; }
+
+        body {
+            background: var(--bg-deep);
+            color: var(--ink);
+            font-family: 'Space Mono', 'Courier New', monospace;
+            overflow-x: hidden;
+        }
+
+        /* Techno gradient bg */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 15% 0%, rgba(58, 123, 255, 0.22) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 85% 100%, rgba(124, 77, 255, 0.18) 0%, transparent 55%),
+                radial-gradient(ellipse 50% 40% at 50% 50%, rgba(0, 240, 224, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Grid lines */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 240, 224, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 224, 0.035) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* ===================== LAYOUT ===================== */
+        .page-wrap {
+            position: relative;
+            z-index: 1;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 48px 28px 64px;
+        }
+
+        /* ===================== PAGE HEADER ===================== */
+        .page-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .page-kicker {
+            margin: 0 0 6px;
+            color: var(--accent-cyan);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+        }
+
+        .page-kicker::before { content: '//  '; opacity: 0.5; }
+
+        .page-title {
+            margin: 0;
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(26px, 5vw, 48px);
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(120deg, #ffffff 0%, var(--accent-cyan) 55%, var(--accent-blue) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Filter bar */
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-label {
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-right: 4px;
+        }
+
+        .filter-btn {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(0, 240, 224, 0.14);
+            border-radius: 6px;
+            padding: 6px 14px;
+            cursor: pointer;
+            transition: color 220ms ease, border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+        }
+
+        .filter-btn:hover, .filter-btn.is-active {
+            color: var(--accent-cyan);
+            border-color: rgba(0, 240, 224, 0.5);
+            background: rgba(0, 240, 224, 0.07);
+            box-shadow: 0 0 14px rgba(0, 240, 224, 0.12);
+        }
+
+        /* ===================== STATS BAR ===================== */
+        .stats-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 14px 18px;
+            border: 1px solid rgba(0, 240, 224, 0.1);
+            border-radius: 10px;
+            background: rgba(12, 20, 36, 0.6);
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .stats-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: var(--muted);
+            letter-spacing: 0.06em;
+        }
+
+        .stats-item span {
+            color: var(--accent-cyan);
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .stats-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 8px var(--accent-cyan);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.7); }
+        }
+
+        /* ===================== PRODUCT GRID ===================== */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--gap);
+        }
+
+        /* ===================== PRODUCT CARD ===================== */
+        .product-card {
+            position: relative;
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--card-bg);
+            box-shadow: var(--card-glow);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            cursor: pointer;
+            transition:
+                transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 320ms ease,
+                border-color 320ms ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.015);
+            border-color: rgba(0, 240, 224, 0.42);
+            box-shadow: var(--card-hover-glow);
+        }
+
+        /* Top glow line */
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+            opacity: 0.4;
+            z-index: 10;
+            transition: opacity 320ms ease;
+        }
+
+        .product-card:hover::before { opacity: 1; }
+
+        /* Corner bracket */
+        .product-card::after {
+            content: '';
+            position: absolute;
+            top: 10px; right: 10px;
+            width: 18px; height: 18px;
+            border-top: 1.5px solid var(--accent-cyan);
+            border-right: 1.5px solid var(--accent-cyan);
+            border-radius: 0 4px 0 0;
+            opacity: 0.3;
+            z-index: 10;
+            transition: opacity 320ms ease;
+        }
+
+        .product-card:hover::after { opacity: 1; }
+
+        /* ===================== MEDIA AREA ===================== */
+        .card-media {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            background: rgba(5, 10, 20, 0.7);
+        }
+
+        /* Product image */
+        .card-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 2;
+            transition:
+                opacity 500ms ease,
+                transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* Image fades out when video starts */
+        .product-card.is-playing .card-img {
+            opacity: 0;
+        }
+
+        /* Slight zoom on hover before video */
+        .product-card:hover .card-img {
+            transform: scale(1.04);
+        }
+
+        /* Video preview */
+        .card-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 400ms ease;
+        }
+
+        .product-card.is-playing .card-video {
+            opacity: 1;
+        }
+
+        /* Scan lines overlay */
+        .card-scan {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 3px,
+                rgba(0, 240, 224, 0.02) 3px,
+                rgba(0, 240, 224, 0.02) 4px
+            );
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 300ms ease;
+        }
+
+        .product-card:hover .card-scan { opacity: 1; }
+
+        /* VIDEO PLAYING indicator */
+        .card-preview-badge {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            z-index: 6;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(5, 10, 18, 0.82);
+            border: 1px solid rgba(0, 240, 224, 0.3);
+            border-radius: 5px;
+            padding: 4px 9px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            color: var(--accent-cyan);
+            opacity: 0;
+            transform: translateY(4px);
+            transition: opacity 300ms ease, transform 300ms ease;
+            pointer-events: none;
+        }
+
+        .card-preview-badge::before {
+            content: '';
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 6px var(--accent-cyan);
+            animation: pulse-dot 1.2s ease-in-out infinite;
+        }
+
+        .product-card.is-playing .card-preview-badge {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Badge tag (new / sale etc) */
+        .card-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 7;
+            font-size: 9px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .card-badge.new {
+            background: rgba(0, 240, 224, 0.12);
+            border: 1px solid rgba(0, 240, 224, 0.35);
+            color: var(--accent-cyan);
+        }
+
+        .card-badge.sale {
+            background: rgba(255, 58, 140, 0.12);
+            border: 1px solid rgba(255, 58, 140, 0.35);
+            color: var(--accent-pink);
+        }
+
+        .card-badge.hot {
+            background: rgba(58, 123, 255, 0.12);
+            border: 1px solid rgba(58, 123, 255, 0.35);
+            color: var(--accent-blue);
+        }
+
+        /* ===================== CARD BODY ===================== */
+        .card-body {
+            padding: 16px 18px 20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .card-brand {
+            font-size: 10px;
+            letter-spacing: 0.16em;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            margin: 0 0 5px;
+            opacity: 0.8;
+        }
+
+        .card-brand::before { content: '> '; opacity: 0.5; }
+
+        .card-name {
+            font-family: 'Syne', sans-serif;
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--ink);
+            margin: 0 0 6px;
+            line-height: 1.2;
+        }
+
+        .card-desc {
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.6;
+            margin: 0 0 16px;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .card-price {
+            font-family: 'Syne', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--ink);
+        }
+
+        .card-price .old-price {
+            font-size: 13px;
+            font-weight: 400;
+            color: var(--muted);
+            text-decoration: line-through;
+            margin-left: 6px;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .card-cta {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--bg-deep);
+            background: var(--accent-cyan);
+            border: none;
+            border-radius: 7px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background 220ms ease, box-shadow 220ms ease, transform 180ms ease;
+            text-transform: uppercase;
+        }
+
+        .card-cta:hover {
+            background: #4fffff;
+            box-shadow: 0 0 18px rgba(0, 240, 224, 0.45);
+            transform: scale(1.04);
+        }
+
+        /* Specs row */
+        .card-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+
+        .spec-tag {
+            font-size: 9px;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+            border: 1px solid rgba(0, 240, 224, 0.12);
+            border-radius: 4px;
+            padding: 3px 8px;
+            background: rgba(0, 240, 224, 0.04);
+        }
+
+        /* ===================== PAGINATION ===================== */
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 44px;
+        }
+
+        .page-btn {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(0, 240, 224, 0.13);
+            border-radius: 7px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 220ms ease;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .page-btn:hover, .page-btn.is-active {
+            color: var(--accent-cyan);
+            border-color: rgba(0, 240, 224, 0.45);
+            background: rgba(0, 240, 224, 0.07);
+            box-shadow: 0 0 14px rgba(0, 240, 224, 0.12);
+        }
+
+        /* ===================== RESPONSIVE ===================== */
+        @media (max-width: 640px) {
+            .page-header { flex-direction: column; align-items: flex-start; }
+            .product-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+            .card-name { font-size: 14px; }
+            .card-price { font-size: 16px; }
+        }
+
+        @media (max-width: 420px) {
+            .product-grid { grid-template-columns: 1fr; }
+            .page-wrap { padding: 28px 16px 48px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .product-card, .card-img, .card-video, .card-cta { transition: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+        <div>
+            <p class="page-kicker">Product Category</p>
+            <h1 class="page-title">Laptops & Ultrabooks</h1>
+        </div>
+        <div class="filter-bar">
+            <span class="filter-label">Filter:</span>
+            <button class="filter-btn is-active">All</button>
+            <button class="filter-btn">Gaming</button>
+            <button class="filter-btn">Ultrabook</button>
+            <button class="filter-btn">Workstation</button>
+            <button class="filter-btn">Budget</button>
+        </div>
+    </header>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stats-item">
+            <div class="stats-dot"></div>
+            <span>24</span> Products
+        </div>
+        <div class="stats-item">Showing <span>6</span> of 24</div>
+        <div class="stats-item">Sort: <span>Featured</span></div>
+        <div class="stats-item">Hover card to preview video</div>
+    </div>
+
+    <!-- PRODUCT GRID -->
+    <div class="product-grid">
+
+        <!-- CARD 1 -->
+        <div class="product-card"
+            data-video-src="https://www.w3schools.com/html/mov_bbb.mp4"
+            data-video-start="4"
+            data-video-end="12">
+            <div class="card-media">
+                <span class="card-badge new">New</span>
+                <img
+                    src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&q=80"
+                    alt="MacBook Pro"
+                    class="card-img"
+                    loading="lazy">
+                <video class="card-video" muted loop playsinline preload="none"></video>
+                <div class="card-scan"></div>
+                <div class="card-preview-badge">PREVIEW</div>
+            </div>
+            <div class="card-body">
+                <p class="card-brand">Apple</p>
+                <h2 class="card-name">MacBook Pro 14"</h2>
+                <div class="card-specs">
+                    <span class="spec-tag">M4 Pro</span>
+                    <span class="spec-tag">18GB RAM</span>
+                    <span class="spec-tag">512GB SSD</span>
+                    <span class="spec-tag">120Hz XDR</span>
+                </div>
+                <p class="card-desc">Blazing M4 Pro chip with Neural Engine, Liquid Retina XDR display, and 22-hour battery life.</p>
+                <div class="card-footer">
+                    <div class="card-price">$1,999</div>
+                    <button class="card-cta">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="product-card"
+            data-video-src="https://www.w3schools.com/html/mov_bbb.mp4"
+            data-video-start="6"
+            data-video-end="14">
+            <div class="card-media">
+                <span class="card-badge hot">Trending</span>
+                <img
+                    src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&q=80"
+                    alt="Gaming Laptop"
+                    class="card-img"
+                    loading="lazy">
+                <video class="card-video" muted loop playsinline preload="none"></video>
+                <div class="card-scan"></div>
+                <div class="card-preview-badge">PREVIEW</div>
+            </div>
+            <div class="card-body">
+                <p class="card-brand">Asus</p>
+                <h2 class="card-name">ROG Zephyrus G16</h2>
+                <div class="card-specs">
+                    <span class="spec-tag">RTX 4080</span>
+                    <span class="spec-tag">32GB RAM</span>
+                    <span class="spec-tag">1TB SSD</span>
+                    <span class="spec-tag">240Hz</span>
+                </div>
+                <p class="card-desc">Extreme gaming performance in a thin chassis. RTX 4080 with 16" OLED 240Hz panel.</p>
+                <div class="card-footer">
+                    <div class="card-price">$2,499</div>
+                    <button class="card-cta">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="product-card"
+            data-video-src="https://www.w3schools.com/html/mov_bbb.mp4"
+            data-video-start="2"
+            data-video-end="10">
+            <div class="card-media">
+                <span class="card-badge sale">-20%</span>
+                <img
+                    src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600&q=80"
+                    alt="Lenovo ThinkPad"
+                    class="card-img"
+                    loading="lazy">
+                <video class="card-video" muted loop playsinline preload="none"></video>
+                <div class="card-scan"></div>
+                <div class="card-preview-badge">PREVIEW</div>
+            </div>
+            <div class="card-body">
+                <p class="card-brand">Lenovo</p>
+                <h2 class="card-name">ThinkPad X1 Carbon</h2>
+                <div class="card-specs">
+                    <span class="spec-tag">Core Ultra 7</span>
+                    <span class="spec-tag">16GB RAM</span>
+                    <span class="spec-tag">1TB SSD</span>
+                    <span class="spec-tag">OLED</span>
+                </div>
+                <p class="card-desc">Business powerhouse with MIL-SPEC durability, 2.8K OLED display, and 15-hour battery.</p>
+                <div class="card-footer">
+                    <div class="card-price">$1,279 <span class="old-price">$1,599</span></div>
+                    <button class="card-cta">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="product-card"
+            data-video-src="https://www.w3schools.com/html/mov_bbb.mp4"
+            data-video-start="8"
+            data-video-end="16">
+            <div class="card-media">
+                <img
+                    src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80"
+                    alt="Dell XPS"
+                    class="card-img"
+                    loading="lazy">
+                <video class="card-video" muted loop playsinline preload="none"></video>
+                <div class="card-scan"></div>
+                <div class="card-preview-badge">PREVIEW</div>
+            </div>
+            <div class="card-body">
+                <p class="card-brand">Dell</p>
+                <h2 class="card-name">XPS 15 Studio</h2>
+                <div class="card-specs">
+                    <span class="spec-tag">RTX 4060</span>
+                    <span class="spec-tag">32GB RAM</span>
+                    <span class="spec-tag">1TB SSD</span>
+                    <span class="spec-tag">4K OLED</span>
+                </div>
+                <p class="card-desc">Creator-focused powerhouse with 4K OLED touch display and RTX 4060 for rendering work.</p>
+                <div class="card-footer">
+                    <div class="card-price">$1,849</div>
+                    <button class="card-cta">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 5 -->
+        <div class="product-card"
+            data-video-src="https://www.w3schools.com/html/mov_bbb.mp4"
+            data-video-start="3"
+            data-video-end="11">
+            <div class="card-media">
+                <span class="card-badge sale">-15%</span>
+                <img
+                    src="https://images.unsplash.com/photo-1544099858-522e989b4aa9?w=600&q=80"
+                    alt="HP Spectre"
+                    class="card-img"
+                    loading="lazy">
+                <video class="card-video" muted loop playsinline preload="none"></video>
+                <div class="card-scan"></div>
+                <div class="card-preview-badge">PREVIEW</div>
+            </div>
+            <div class="card-body">
+                <p class="card-brand">HP</p>
+                <h2 class="card-name">Spectre x360 14"</h2>
+                <div class="card-specs">
+                    <span class="spec-tag">Core Ultra 5</span>
+                    <span class="spec-tag">16GB RAM</span>
+                    <span class="spec-tag">512GB SSD</span>
+                    <span class="spec-tag">AMOLED</span>
+                </div>
+                <p class="card-desc">Premium 2-in-1 convertible with AMOLED touch display, gem-cut design, and stylus included.</p>
+                <div class="card-footer">
+                    <div class="card-price">$1,149 <span class="old-price">$1,349</span></div>
+                    <button class="card-cta">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 6 -->
+        <div class="product-card"
+            data-video-src="https://www.w3schools.com/html/mov_bbb.mp4"
+            data-video-start="5"
+            data-video-end="13">
+            <div class="card-media">
+                <span class="card-badge new">New</span>
+                <img
+                    src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&q=80"
+                    alt="Acer Swift"
+                    class="card-img"
+                    loading="lazy">
+                <video class="card-video" muted loop playsinline preload="none"></video>
+                <div class="card-scan"></div>
+                <div class="card-preview-badge">PREVIEW</div>
+            </div>
+            <div class="card-body">
+                <p class="card-brand">Acer</p>
+                <h2 class="card-name">Swift Edge 16</h2>
+                <div class="card-specs">
+                    <span class="spec-tag">Ryzen 7</span>
+                    <span class="spec-tag">16GB RAM</span>
+                    <span class="spec-tag">1TB SSD</span>
+                    <span class="spec-tag">4K OLED</span>
+                </div>
+                <p class="card-desc">World's lightest 16" OLED laptop at just 1.17kg with AMD Ryzen 7 and all-day battery.</p>
+                <div class="card-footer">
+                    <div class="card-price">$1,099</div>
+                    <button class="card-cta">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /product-grid -->
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+        <button class="page-btn">&laquo;</button>
+        <button class="page-btn is-active">01</button>
+        <button class="page-btn">02</button>
+        <button class="page-btn">03</button>
+        <button class="page-btn">04</button>
+        <button class="page-btn">&raquo;</button>
+    </div>
+
+</div><!-- /page-wrap -->
+
+<script>
+    /* ── Filter buttons ── */
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('is-active'));
+            btn.classList.add('is-active');
+        });
+    });
+
+    /* ── Product card video preview ──
+       Logic:
+       1. On mouseenter → start 400ms delay
+       2. After delay → load video (if not loaded), seek to data-video-start, play
+       3. On timeupdate → when currentTime >= data-video-end, loop back to data-video-start
+       4. On mouseleave → cancel delay, pause video, crossfade back to image
+    */
+    document.querySelectorAll('.product-card').forEach(card => {
+        const video    = card.querySelector('.card-video');
+        const img      = card.querySelector('.card-img');
+        const src      = card.dataset.videoSrc;
+        const start    = parseFloat(card.dataset.videoStart) || 0;
+        const end      = parseFloat(card.dataset.videoEnd)   || 10;
+
+        let hoverTimer = null;
+        let loaded     = false;
+
+        function loopSegment() {
+            if (video.currentTime >= end || video.currentTime < start) {
+                video.currentTime = start;
+            }
+        }
+
+        function startPreview() {
+            card.classList.add('is-playing');
+
+            if (!loaded) {
+                video.src = src;
+                video.load();
+                loaded = true;
+
+                video.addEventListener('canplay', () => {
+                    video.currentTime = start;
+                    video.play().catch(() => {});
+                }, { once: true });
+            } else {
+                video.currentTime = start;
+                video.play().catch(() => {});
+            }
+
+            video.addEventListener('timeupdate', loopSegment);
+        }
+
+        function stopPreview() {
+            clearTimeout(hoverTimer);
+            card.classList.remove('is-playing');
+            video.pause();
+            video.removeEventListener('timeupdate', loopSegment);
+        }
+
+        card.addEventListener('mouseenter', () => {
+            hoverTimer = setTimeout(startPreview, 400);
+        });
+
+        card.addEventListener('mouseleave', stopPreview);
+    });
+</script>
+</body>
+</html>

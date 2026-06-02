@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Product Category</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/product-grid.css">
+</head>
+<body>
+
+<div class="page-wrap">
+
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+        <div>
+            <p class="page-kicker">Product Category</p>
+            <h1 class="page-title">Laptops & Ultrabooks</h1>
+        </div>
+        <div class="filter-bar">
+            <span class="filter-label">Filter:</span>
+            <button class="filter-btn is-active">All</button>
+            <button class="filter-btn">Asus</button>
+            <button class="filter-btn">Acer</button>
+            <!-- <button class="filter-btn">Workstation</button>
+            <button class="filter-btn">Budget</button> -->
+        </div>
+    </header>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stats-item">
+            <div class="stats-dot"></div>
+            <span>24</span> Products
+        </div>
+        <div class="stats-item">Showing <span>6</span> of 24</div>
+        <div class="stats-item">Sort: <span>Featured</span></div>
+        <div class="stats-item">Hover card to preview video</div>
+    </div>
+
+    <!-- PRODUCT GRID -->
+    <div class="product-grid">
+
+        <!-- CARD 1 -->
+        <div class="product-card"
+            data-video-src="https://www.w3schools.com/html/mov_bbb.mp4"
+            data-video-start="4"
+            data-video-end="12">
+            <div class="card-media">
+                <span class="card-badge new">New</span>
+                <img
+                    src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&q=80"
+                    alt="MacBook Pro"
+                    class="card-img"
+                    loading="lazy">
+                <video class="card-video" muted loop playsinline preload="none"></video>
+                <div class="card-scan"></div>
+                <div class="card-preview-badge">PREVIEW</div>
+            </div>
+            <div class="card-body">
+                <p class="card-brand">Apple</p>
+                <h2 class="card-name">MacBook Pro 14"</h2>
+                <div class="card-specs">
+                    <span class="spec-tag">M4 Pro</span>
+                    <span class="spec-tag">18GB RAM</span>
+                    <span class="spec-tag">512GB SSD</span>
+                    <span class="spec-tag">120Hz XDR</span>
+                </div>
+                <p class="card-desc">Blazing M4 Pro chip with Neural Engine, Liquid Retina XDR display, and 22-hour battery life.</p>
+                <div class="card-footer">
+                    <div class="card-price">$1,999</div>
+                    <button class="card-cta">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="product-card"
+            data-video-src="https://www.w3schools.com/html/mov_bbb.mp4"
+            data-video-start="6"
+            data-video-end="14">
+            <div class="card-media">
+                <span class="card-badge hot">Trending</span>
+                <img
+                    src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=600&q=80"
+                    alt="Gaming Laptop"
+                    class="card-img"
+                    loading="lazy">
+                <video class="card-video" muted loop playsinline preload="none"></video>
+                <div class="card-scan"></div>
+                <div class="card-preview-badge">PREVIEW</div>
+            </div>
+            <div class="card-body">
+                <p class="card-brand">Asus</p>
+                <h2 class="card-name">ROG Zephyrus G16</h2>
+                <div class="card-specs">
+                    <span class="spec-tag">RTX 4080</span>
+                    <span class="spec-tag">32GB RAM</span>
+                    <span class="spec-tag">1TB SSD</span>
+                    <span class="spec-tag">240Hz</span>
+                </div>
+                <p class="card-desc">Extreme gaming performance in a thin chassis. RTX 4080 with 16" OLED 240Hz panel.</p>
+                <div class="card-footer">
+                    <div class="card-price">$2,499</div>
+                    <button class="card-cta">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="product-card"
+            data-video-src="https://www.w3schools.com/html/mov_bbb.mp4"
+            data-video-start="2"
+            data-video-end="10">
+            <div class="card-media">
+                <span class="card-badge sale">-20%</span>
+                <img
+                    src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600&q=80"
+                    alt="Lenovo ThinkPad"
+                    class="card-img"
+                    loading="lazy">
+                <video class="card-video" muted loop playsinline preload="none"></video>
+                <div class="card-scan"></div>
+                <div class="card-preview-badge">PREVIEW</div>
+            </div>
+            <div class="card-body">
+                <p class="card-brand">Lenovo</p>
+                <h2 class="card-name">ThinkPad X1 Carbon</h2>
+                <div class="card-specs">
+                    <span class="spec-tag">Core Ultra 7</span>
+                    <span class="spec-tag">16GB RAM</span>
+                    <span class="spec-tag">1TB SSD</span>
+                    <span class="spec-tag">OLED</span>
+                </div>
+                <p class="card-desc">Business powerhouse with MIL-SPEC durability, 2.8K OLED display, and 15-hour battery.</p>
+                <div class="card-footer">
+                    <div class="card-price">$1,279 <span class="old-price">$1,599</span></div>
+                    <button class="card-cta">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="product-card"
+            data-video-src="https://www.w3schools.com/html/mov_bbb.mp4"
+            data-video-start="8"
+            data-video-end="16">
+            <div class="card-media">
+                <img
+                    src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600&q=80"
+                    alt="Dell XPS"
+                    class="card-img"
+                    loading="lazy">
+                <video class="card-video" muted loop playsinline preload="none"></video>
+                <div class="card-scan"></div>
+                <div class="card-preview-badge">PREVIEW</div>
+            </div>
+            <div class="card-body">
+                <p class="card-brand">Dell</p>
+                <h2 class="card-name">XPS 15 Studio</h2>
+                <div class="card-specs">
+                    <span class="spec-tag">RTX 4060</span>
+                    <span class="spec-tag">32GB RAM</span>
+                    <span class="spec-tag">1TB SSD</span>
+                    <span class="spec-tag">4K OLED</span>
+                </div>
+                <p class="card-desc">Creator-focused powerhouse with 4K OLED touch display and RTX 4060 for rendering work.</p>
+                <div class="card-footer">
+                    <div class="card-price">$1,849</div>
+                    <button class="card-cta">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 5 -->
+        <div class="product-card"
+            data-video-src="https://www.w3schools.com/html/mov_bbb.mp4"
+            data-video-start="3"
+            data-video-end="11">
+            <div class="card-media">
+                <span class="card-badge sale">-15%</span>
+                <img
+                    src="https://images.unsplash.com/photo-1544099858-522e989b4aa9?w=600&q=80"
+                    alt="HP Spectre"
+                    class="card-img"
+                    loading="lazy">
+                <video class="card-video" muted loop playsinline preload="none"></video>
+                <div class="card-scan"></div>
+                <div class="card-preview-badge">PREVIEW</div>
+            </div>
+            <div class="card-body">
+                <p class="card-brand">HP</p>
+                <h2 class="card-name">Spectre x360 14"</h2>
+                <div class="card-specs">
+                    <span class="spec-tag">Core Ultra 5</span>
+                    <span class="spec-tag">16GB RAM</span>
+                    <span class="spec-tag">512GB SSD</span>
+                    <span class="spec-tag">AMOLED</span>
+                </div>
+                <p class="card-desc">Premium 2-in-1 convertible with AMOLED touch display, gem-cut design, and stylus included.</p>
+                <div class="card-footer">
+                    <div class="card-price">$1,149 <span class="old-price">$1,349</span></div>
+                    <button class="card-cta">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 6 -->
+        <div class="product-card"
+            data-video-src="https://www.w3schools.com/html/mov_bbb.mp4"
+            data-video-start="5"
+            data-video-end="13">
+            <div class="card-media">
+                <span class="card-badge new">New</span>
+                <img
+                    src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&q=80"
+                    alt="Acer Swift"
+                    class="card-img"
+                    loading="lazy">
+                <video class="card-video" muted loop playsinline preload="none"></video>
+                <div class="card-scan"></div>
+                <div class="card-preview-badge">PREVIEW</div>
+            </div>
+            <div class="card-body">
+                <p class="card-brand">Acer</p>
+                <h2 class="card-name">Swift Edge 16</h2>
+                <div class="card-specs">
+                    <span class="spec-tag">Ryzen 7</span>
+                    <span class="spec-tag">16GB RAM</span>
+                    <span class="spec-tag">1TB SSD</span>
+                    <span class="spec-tag">4K OLED</span>
+                </div>
+                <p class="card-desc">World's lightest 16" OLED laptop at just 1.17kg with AMD Ryzen 7 and all-day battery.</p>
+                <div class="card-footer">
+                    <div class="card-price">$1,099</div>
+                    <button class="card-cta">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+    </div><!-- /product-grid -->
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+        <button class="page-btn">&laquo;</button>
+        <button class="page-btn is-active">01</button>
+        <button class="page-btn">02</button>
+        <button class="page-btn">03</button>
+        <button class="page-btn">04</button>
+        <button class="page-btn">&raquo;</button>
+    </div>
+
+</div><!-- /page-wrap -->
+
+<script src="../assets/js/product-grid.js"></script>
+</body>
+</html>
