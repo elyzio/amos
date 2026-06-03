@@ -76,6 +76,16 @@
     position: absolute; left: 0; right: 0; bottom: 0; z-index: 5;
     padding: 10px 14px 14px;
     background: linear-gradient(to top, rgba(5,10,18,0.97) 70%, transparent);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.video-frame.controls-visible .player-controls {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
 }
 
 .control-row {
@@ -159,6 +169,13 @@
 }
 .speed-option:hover, .speed-option.is-active {
     background: rgba(0,240,224,0.12); color: var(--accent-cyan);
+}
+
+/* Hide cursor in fullscreen when controls are not visible */
+.video-frame.is-fullscreen:not(.controls-visible),
+.video-frame:fullscreen:not(.controls-visible),
+.video-frame:-webkit-full-screen:not(.controls-visible) {
+    cursor: none;
 }
 
 /* Fullscreen */

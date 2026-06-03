@@ -273,6 +273,73 @@ var speedOptions  = document.querySelectorAll(".speed-option");
 var fullscreenBtn = document.getElementById("fullscreenBtn");
 
 var videoDragging = false;
+var controlsHideTimer = null;
+
+/* ── Controls auto-hide ──
+   Normal view : show on mouseenter, hide on mouseleave or outside click.
+   Fullscreen  : show on mousemove, hide after 3 s of inactivity.
+   Video click : toggle controls in both modes.
+   Touch       : tap video to toggle controls.
+*/
+function showControls() {
+    videoFrame.classList.add('controls-visible');
+}
+
+function hideControls() {
+    if (speedMenu.classList.contains('is-open')) return;
+    if (videoDragging) return;
+    videoFrame.classList.remove('controls-visible');
+}
+
+function scheduleHide(ms) {
+    clearTimeout(controlsHideTimer);
+    controlsHideTimer = setTimeout(hideControls, ms !== undefined ? ms : 3000);
+}
+
+videoFrame.addEventListener('mouseenter', function() {
+    if (!isFullscreen()) showControls();
+});
+
+videoFrame.addEventListener('mouseleave', function() {
+    if (!isFullscreen()) {
+        clearTimeout(controlsHideTimer);
+        hideControls();
+    }
+});
+
+videoFrame.addEventListener('mousemove', function() {
+    if (isFullscreen()) {
+        showControls();
+        scheduleHide(3000);
+    }
+});
+
+video.addEventListener('click', function() {
+    if (videoFrame.classList.contains('controls-visible')) {
+        clearTimeout(controlsHideTimer);
+        hideControls();
+    } else {
+        showControls();
+        if (isFullscreen()) scheduleHide(3000);
+    }
+});
+
+video.addEventListener('touchstart', function() {
+    if (videoFrame.classList.contains('controls-visible')) {
+        clearTimeout(controlsHideTimer);
+        hideControls();
+    } else {
+        showControls();
+        if (isFullscreen()) scheduleHide(3000);
+    }
+}, { passive: true });
+
+document.addEventListener('click', function(e) {
+    if (!isFullscreen() && videoFrame && !videoFrame.contains(e.target)) {
+        clearTimeout(controlsHideTimer);
+        hideControls();
+    }
+});
 
 /* ── Source resolution: local → drive → hide frame ──
    Reads window.videoSources = { local: '...', drive: '...' } set per page.
@@ -337,6 +404,7 @@ videoProgress.addEventListener("pointerup", function() {
     var dur = getVideoDur();
     if (dur) video.currentTime = Number(videoProgress.value) / 1000 * dur;
     updateVideoUI();
+    if (isFullscreen()) scheduleHide(3000);
 });
 videoProgress.addEventListener("input", function() {
     var dur = getVideoDur(); if (!dur) return;
@@ -375,7 +443,14 @@ function updateFullscreenBtn() {
     videoFrame.classList.toggle("is-fullscreen", on);
     fullscreenBtn.textContent = on ? "⤢" : "⛶";
     fullscreenBtn.title = on ? "Exit full screen" : "Full screen";
-    if (on) speedMenu.classList.remove("is-open");
+    if (on) {
+        speedMenu.classList.remove("is-open");
+        showControls();
+        scheduleHide(3000);
+    } else {
+        clearTimeout(controlsHideTimer);
+        hideControls();
+    }
 }
 
 fullscreenBtn.addEventListener("click", async function() {
