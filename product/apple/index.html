@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Product Category</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../assets/css/base.css">
+    <link rel="stylesheet" href="../../assets/css/nav.css">
+    <link rel="stylesheet" href="../../assets/css/product-grid.css">
+</head>
+<body>
+
+<nav class="site-nav">
+    <span class="nav-prefix">//</span>
+    <a href="../../index.html" class="nav-crumb">Home</a>
+    <span class="nav-sep">›</span>
+    <a href="../index.html" class="nav-crumb">Product</a>
+    <span class="nav-sep">›</span>
+    <span class="nav-crumb nav-crumb--active">Apple</span>
+</nav>
+
+<div class="page-wrap">
+
+    <!-- PAGE HEADER -->
+    <header class="page-header">
+        <!-- <div>
+            <p class="page-kicker">Product Category</p>
+            <h1 class="page-title">Laptops & Ultrabooks</h1>
+        </div> -->
+
+        <div class="filter-bar">
+            <span class="filter-label">Filter:</span>
+            <a href="../index.html" class="filter-btn">All</a>
+            <a href="../asus/index.html" class="filter-btn">Asus</a>
+            <button class="filter-btn">Acer</button>
+            <button class="filter-btn is-active">Apple</button>
+        </div>
+    </header>
+
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stats-item">
+            <div class="stats-dot"></div>
+            <span>1</span> Products
+        </div>
+        <!-- <div class="stats-item">Showing <span>12</span> of 24</div> -->
+        <!-- <div class="stats-item">Sort: <span>Featured</span></div> -->
+        <div class="stats-item">Hover card to preview video</div>
+    </div>
+
+    <!-- PRODUCT GRID -->
+    <div class="product-grid">
+
+        <!-- Macbook Neo -->
+        <div class="product-card"
+            data-video-local="../../assets/video/apple/macbook_neo/macbook_neo_higlight.mp4"
+            data-video-drive="https://qyxqikmsmdarpxihtrzg.supabase.co/storage/v1/object/public/video/video/apple/macbook_neo/macbook_neo-highlight.mp4"
+            data-video-start="4"
+            data-video-end="12">    
+            <div class="card-media">
+                <img
+                    src="../../assets/img/apple/macbook_neo/macbook_neo_1.webp"
+                    alt="Macbook Neo"
+                    class="card-img"
+                    loading="lazy">
+                <video class="card-video" muted loop playsinline preload="none"></video>
+                <div class="card-scan"></div>
+                <div class="card-preview-badge">PREVIEW</div>
+            </div>
+            <div class="card-body">
+                <p class="card-brand">Asus</p>
+                <h2 class="card-name">Macbook Neo</h2>
+            </div>
+            <a href="macbook_neo.html" class="card-link" aria-label="MacBook Neo"></a>
+        </div>
+
+
+    </div><!-- /product-grid -->
+
+    <div class="load-more-wrap">
+        <button class="load-more-btn" id="loadMoreBtn">// Load More</button>
+    </div>
+
+</div><!-- /page-wrap -->
+
+<script src="../../assets/js/product-grid.js"></script>
+</body>
+</html>
