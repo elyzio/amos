@@ -27,9 +27,7 @@
 
         <div class="video-frame" id="videoFrame">
             <p class="frame-title">ProArt PZ14</p>
-            <video class="frame-video" id="mainVideo" playsinline preload="metadata">
-                <source src="../../assets/video/video_test.mp4" type="video/mp4">
-            </video>
+            <video class="frame-video" id="mainVideo" playsinline preload="metadata"></video>
             <div class="player-controls">
                 <div class="control-row">
                     <button type="button" class="ctrl-btn" data-skip="-5">−5s</button>
@@ -158,6 +156,12 @@
 </div>
 
 <script>
+const asset_link = '../../assets/video/';
+const cloud_link = 'https://qyxqikmsmdarpxihtrzg.supabase.co/storage/v1/object/public/video/video/';
+window.videoSources = {
+    local: asset_link + '../../assets/video/asus/proart_pz14_ht7407/proart_pz14_ht7407.mp4',
+    drive: cloud_link + '../../assets/video/asus/proart_pz14_ht7407/proart_pz14_ht7407.mp4',
+};
 window.PRODUCT_DESCRIPTION = {
     title: "ProArt PZ14 (HT7407) Copilot+ PC",
     text: `

@@ -274,6 +274,27 @@ var fullscreenBtn = document.getElementById("fullscreenBtn");
 
 var videoDragging = false;
 
+/* ── Source resolution: local → drive → hide frame ──
+   Reads window.videoSources = { local: '...', drive: '...' } set per page.
+   Comment out either key in the page config to disable that source.
+*/
+(function() {
+    var cfg  = window.videoSources || {};
+    var srcs = [cfg.local, cfg.drive].filter(Boolean);
+    if (!srcs.length) return;
+    var idx = 0;
+    function tryNext() {
+        if (idx >= srcs.length) {
+            if (videoFrame) videoFrame.style.display = 'none';
+            return;
+        }
+        video.src = srcs[idx++];
+        video.load();
+    }
+    video.addEventListener('error', tryNext);
+    tryNext();
+})();
+
 function fmtTimeVid(s) {
     if (!Number.isFinite(s)) return "0:00";
     return Math.floor(s/60) + ":" + String(Math.floor(s%60)).padStart(2,"0");

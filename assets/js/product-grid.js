@@ -7,19 +7,24 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 
 /* ── Product card video preview ──
-   1. On mouseenter → start 400ms delay
-   2. After delay → load video (if not loaded), seek to data-video-start, play
-   3. On timeupdate → when currentTime >= data-video-end, loop back to data-video-start
-   4. On mouseleave → cancel delay, pause video, crossfade back to image
+   Sources tried in order: data-video-local → data-video-drive
+   If both absent the card stays image-only.
+   To use local only:  set data-video-local, omit data-video-drive
+   To use drive only:  set data-video-drive, omit data-video-local
+   To disable video:   omit both attributes
 */
 document.querySelectorAll('.product-card').forEach(card => {
-    const video = card.querySelector('.card-video');
-    const src   = card.dataset.videoSrc;
-    const start = parseFloat(card.dataset.videoStart) || 0;
-    const end   = parseFloat(card.dataset.videoEnd)   || 10;
+    const video   = card.querySelector('.card-video');
+    const sources = [card.dataset.videoLocal, card.dataset.videoDrive].filter(Boolean);
+    const start   = parseFloat(card.dataset.videoStart) || 0;
+    const end     = parseFloat(card.dataset.videoEnd)   || 10;
+
+    if (!sources.length) return;
 
     let hoverTimer = null;
+    let srcIndex   = 0;
     let loaded     = false;
+    let failed     = false;
 
     function loopSegment() {
         if (video.currentTime >= end || video.currentTime < start) {
@@ -27,22 +32,25 @@ document.querySelectorAll('.product-card').forEach(card => {
         }
     }
 
-    function startPreview() {
-        card.classList.add('is-playing');
+    function loadSource() {
+        video.src = sources[srcIndex++];
+        video.load();
+        video.addEventListener('canplay', () => {
+            video.currentTime = start;
+            video.play().catch(() => {});
+        }, { once: true });
+    }
 
+    function startPreview() {
+        if (failed) return;
+        card.classList.add('is-playing');
         if (!loaded) {
-            video.src = src;
-            video.load();
             loaded = true;
-            video.addEventListener('canplay', () => {
-                video.currentTime = start;
-                video.play().catch(() => {});
-            }, { once: true });
+            loadSource();
         } else {
             video.currentTime = start;
             video.play().catch(() => {});
         }
-
         video.addEventListener('timeupdate', loopSegment);
     }
 
@@ -52,6 +60,16 @@ document.querySelectorAll('.product-card').forEach(card => {
         video.pause();
         video.removeEventListener('timeupdate', loopSegment);
     }
+
+    video.addEventListener('error', () => {
+        if (!loaded || failed) return;
+        if (srcIndex >= sources.length) {
+            failed = true;
+            card.classList.remove('is-playing');
+            return;
+        }
+        loadSource();
+    });
 
     card.addEventListener('mouseenter', () => { hoverTimer = setTimeout(startPreview, 400); });
     card.addEventListener('mouseleave', stopPreview);

@@ -27,9 +27,7 @@
 
         <div class="video-frame" id="videoFrame">
             <p class="frame-title">ASUS Zenbook DUO</p>
-            <video class="frame-video" id="mainVideo" playsinline preload="metadata">
-                <source src="../../assets/video/asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407.mp4" type="video/mp4">
-            </video>
+            <video class="frame-video" id="mainVideo" playsinline preload="metadata"></video>
             <div class="player-controls">
                 <div class="control-row">
                     <button type="button" class="ctrl-btn" data-skip="-5">−5s</button>
@@ -176,6 +174,13 @@
 </div>
 
 <script>
+const asset_link = '../../assets/video/';
+const cloud_link = 'https://qyxqikmsmdarpxihtrzg.supabase.co/storage/v1/object/public/video/video/';
+window.videoSources = {
+    local: asset_link + 'asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407.mp4',
+    drive: cloud_link + 'asus/asus_zenbook_duo_ux8407/asus_zenbook_duo_ux8407.mp4',
+    // drive: '',
+};
 window.PRODUCT_DESCRIPTION = {
     title: "ASUS Zenbook DUO (UX8407)",
     text: `
