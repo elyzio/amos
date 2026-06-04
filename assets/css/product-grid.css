@@ -117,14 +117,15 @@
 
 /* ===================== PRODUCT GRID ===================== */
 .product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: var(--gap);
 }
 
 /* ===================== PRODUCT CARD ===================== */
 .product-card {
+    flex: 0 0 calc(25% - var(--gap) * 0.75);
     position: relative;
     border: 1px solid var(--card-border);
     border-radius: 16px;
@@ -440,13 +441,14 @@
 /* ===================== RESPONSIVE ===================== */
 @media (max-width: 640px) {
     .page-header { flex-direction: column; align-items: flex-start; }
-    .product-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+    .product-grid { gap: 14px; }
+    .product-card { flex-basis: calc(50% - 7px); }
     .card-name { font-size: 14px; }
     .card-price { font-size: 16px; }
 }
 
 @media (max-width: 420px) {
-    .product-grid { grid-template-columns: 1fr; }
+    .product-card { flex-basis: 100%; }
     .page-wrap { padding: 28px 16px 48px; }
 }
 

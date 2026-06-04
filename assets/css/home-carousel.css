@@ -351,8 +351,8 @@ main {
 
 /* ── ABOUT SECTION ── */
 .about-section {
-    text-align: center;
-    max-width: 680px;
+    text-align: left;
+    max-width: 1020px;
     width: 100%;
 }
 
@@ -378,6 +378,7 @@ main {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    /* border: solid black 3px; */
 }
 
 .about-divider {
